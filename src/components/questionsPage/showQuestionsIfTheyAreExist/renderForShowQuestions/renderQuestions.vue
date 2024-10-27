@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, watch, computed } from 'vue'
+import { watch, computed, onMounted } from 'vue'
 import { ref } from 'vue'
 import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore'
 
@@ -34,8 +34,36 @@ function plusCountBtn() {
 function minusCountBtn() {
   if (checkButtons.value.countForBtn === 1) {
     return
-  }else {
-      --checkButtons.value.countForBtn
+  } else {
+    --checkButtons.value.countForBtn
+  }
+}
+
+function checkInputs(newVal) {
+  let lengthOfArray = questionsPinia.getQuestionsDataLength
+
+  if (!newVal) {
+    if (checkButtons.value.countForBtn == lengthOfArray) {
+      checkButtons.value.nextButtons = true
+    } else {
+      checkButtons.value.nextButtons = false
+    }
+    if (checkButtons.value.countForBtn == 1) {
+      checkButtons.value.prevButtons = true
+    } else {
+      checkButtons.value.prevButtons = false
+    }
+  } else {
+    if (newVal == lengthOfArray) {
+      checkButtons.value.nextButtons = true
+    } else {
+      checkButtons.value.nextButtons = false
+    }
+    if (newVal == 1) {
+      checkButtons.value.prevButtons = true
+    } else {
+      checkButtons.value.prevButtons = false
+    }
   }
 }
 
@@ -58,11 +86,11 @@ function nexQuestion() {
   showNextQuestion()
 }
 function showPrevQuestion() {
-    emit('indexOf', numberOfIndex() - 1)
+  emit('indexOf', numberOfIndex() - 1)
 }
 function prevQuestion() {
-    minusCountBtn()
-    showPrevQuestion()
+  minusCountBtn()
+  showPrevQuestion()
 }
 
 //------------------watch---------------------//
@@ -71,20 +99,12 @@ watch(selectedAnswer, newVal => {
   selectedAnswer.value = newVal
 })
 
-watch(() => checkButtons.value.countForBtn, newVal => {
-  let lengthOfArray = questionsPinia.getQuestionsDataLength
-  console.log(newVal == 1)
-    if(newVal == 1) {
-      checkButtons.value.prevButtons = true
-    }else {
-        checkButtons.value.prevButtons = false
-    }
-    if(newVal == lengthOfArray)  {
-        checkButtons.value.nextButtons = true
-    }else {
-      checkButtons.value.nextButtons = false
-    }
-})
+watch(
+  () => checkButtons.value.countForBtn,
+  newVal => {
+    checkInputs(newVal)
+  },
+)
 
 //------------------computed------------------//
 
@@ -93,6 +113,12 @@ let randomAnswersComputed = computed(() => {
   answers.push(props.data.correct_answer)
   answers.sort(() => Math.random() - 0.5)
   return answers
+})
+
+//------------------mounted------------------//
+
+onMounted(() => {
+  checkInputs()
 })
 </script>
 

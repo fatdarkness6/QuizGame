@@ -1,0 +1,113 @@
+.wrapper {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+.flx-column-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.questionsContainer {
+  background-color: #e9ecef;
+  padding-bottom: 20px;
+}
+.questionsContainer .part1 {
+  margin-top: 100px;
+}
+.questionsContainer .part2 input {
+  width: 300px;
+  padding: 10px;
+  border-radius: 7px;
+}
+.questionsContainer .part3 {
+  width: 80%;
+}
+.questionsContainer .part3 button {
+  padding: 10px;
+  background-color: aqua;
+  width: 100%;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.questionsContainer .part3 button:hover {
+  background-color: aquamarine;
+  box-shadow: 3px 3px 10px 0px rgb(66, 66, 66);
+}
+.showQuestions {
+  background-color: #e9ecef;
+  padding: 25px;
+  border-radius: 10px;
+}
+.answers {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.answers .answer {
+  width: 100%;
+  box-shadow: 0px 0px 5px 0px rgb(104, 104, 104);
+  border-radius: 7px;
+  transition: all 0.2s;
+  cursor: pointer;
+  background-color: #fff;
+}
+.answers .answer:hover {
+  background-color: rgb(180, 180, 180);
+}
+.answers .answer button {
+  border: none;
+  padding: 10px;
+  background-color: transparent;
+  font-size: 20px;
+}
+.logicalButtons {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.logicalButtons .changeQuestion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logicalButtons .changeQuestion button {
+  width: 50%;
+  padding: 15px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.dissabledYelloColor {
+    background-color: #f7cf5881;
+    cursor: not-allowed !important;
+}
+.dissabledBlueColor {
+    background-color: #007bff8f;
+    cursor: not-allowed !important;
+}
+.logicalButtons .changeQuestion button:nth-child(1) {
+    background-color: #f7d058;
+}
+.logicalButtons .changeQuestion button:nth-child(2) {
+  background-color: #007bff;
+}
+.logicalButtons .submitAnswer {
+    width: 100%;
+}
+.logicalButtons .submitAnswer button {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  cursor: pointer;
+  background-color: #414141;
+  color: #fff;
+  transition: all 0.3s;
+}
+.logicalButtons .submitAnswer button:hover {
+  background-color: #252525;
+}

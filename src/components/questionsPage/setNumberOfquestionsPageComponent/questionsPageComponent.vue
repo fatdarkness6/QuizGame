@@ -52,6 +52,7 @@ function submitForStartQuiz() {
 onMounted(() => {
   router.push(`/`)
 })
+
 </script>
 
 <template>

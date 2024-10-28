@@ -4,9 +4,7 @@ const props = defineProps({
   data: Object,
   index : Number
 })
-//--------------------computed------------------//
 
-console.log(props.data)
 </script>
 
 <template>

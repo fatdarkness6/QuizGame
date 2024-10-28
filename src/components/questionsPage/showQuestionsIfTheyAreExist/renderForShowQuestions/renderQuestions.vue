@@ -42,32 +42,11 @@ function minusCountBtn() {
   }
 }
 
-function checkInputs(newVal) {
-  let lengthOfArray = questionsPinia.getQuestionsDataLength
-
-  if (!newVal) {
-    if (checkButtons.value.countForBtn == lengthOfArray) {
-      checkButtons.value.nextButtons = true
-    } else {
-      checkButtons.value.nextButtons = false
-    }
-    if (checkButtons.value.countForBtn == 1) {
-      checkButtons.value.prevButtons = true
-    } else {
-      checkButtons.value.prevButtons = false
-    }
-  } else {
-    if (newVal == lengthOfArray) {
-      checkButtons.value.nextButtons = true
-    } else {
-      checkButtons.value.nextButtons = false
-    }
-    if (newVal == 1) {
-      checkButtons.value.prevButtons = true
-    } else {
-      checkButtons.value.prevButtons = false
-    }
-  }
+function checkButtonsFn(newVal) {
+  const lengthOfArray = questionsPinia.getQuestionsDataLength;
+  const count = newVal || checkButtons.value.countForBtn;
+  checkButtons.value.nextButtons = (count === lengthOfArray);
+  checkButtons.value.prevButtons = (count === 1);
 }
 
 function saveAnswer() {
@@ -79,26 +58,26 @@ function saveAnswer() {
   questionsPinia.saveAnswersFn(props.data)
 }
 
-function showNextQuestion() {
+function sendDataForshowNextQuestion() {
   emit('indexOf', numberOfIndex() + 1)
 }
 
 function nexQuestion() {
   saveAnswer()
   plusCountBtn()
-  showNextQuestion()
+  sendDataForshowNextQuestion()
 }
-function showPrevQuestion() {
+function sendDataForshowPrevQuestion() {
   emit('indexOf', numberOfIndex() - 1)
 }
 function prevQuestion() {
   minusCountBtn()
-  showPrevQuestion()
+  sendDataForshowPrevQuestion()
 }
 function setQueryParams(props) {
   router.push(`?${props}`)
 }
-function finishQuiz() {
+function finishQuizFn() {
   saveAnswer()
   setQueryParams(`page=showQuizResult`)
 }
@@ -111,7 +90,7 @@ watch(selectedAnswer, newVal => {
 watch(
   () => checkButtons.value.countForBtn,
   newVal => {
-    checkInputs(newVal)
+    checkButtonsFn(newVal)
   },
 )
 
@@ -127,7 +106,7 @@ let randomAnswersComputed = computed(() => {
 //------------------mounted------------------//
 
 onMounted(() => {
-  checkInputs()
+  checkButtonsFn()
 })
 </script>
 
@@ -164,7 +143,7 @@ onMounted(() => {
       </button>
     </div>
     <div class="submitAnswer">
-      <button @click="finishQuiz">Finish Quiz</button>
+      <button @click="finishQuizFn">Finish Quiz</button>
     </div>
   </div>
   <div class="typeOfQuestions">

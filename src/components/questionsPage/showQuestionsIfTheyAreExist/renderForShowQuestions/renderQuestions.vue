@@ -43,10 +43,10 @@ function minusCountBtn() {
 }
 
 function checkButtonsFn(newVal) {
-  const lengthOfArray = questionsPinia.getQuestionsDataLength;
-  const count = newVal || checkButtons.value.countForBtn;
-  checkButtons.value.nextButtons = (count === lengthOfArray);
-  checkButtons.value.prevButtons = (count === 1);
+  const lengthOfArray = questionsPinia.getQuestionsDataLength
+  const count = newVal || checkButtons.value.countForBtn
+  checkButtons.value.nextButtons = count === lengthOfArray
+  checkButtons.value.prevButtons = count === 1
 }
 
 function saveAnswer() {
@@ -66,10 +66,13 @@ function nexQuestion() {
   saveAnswer()
   plusCountBtn()
   sendDataForshowNextQuestion()
+  selectedAnswer.value = null
 }
 function sendDataForshowPrevQuestion() {
   emit('indexOf', numberOfIndex() - 1)
 }
+
+
 function prevQuestion() {
   minusCountBtn()
   sendDataForshowPrevQuestion()

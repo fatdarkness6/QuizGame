@@ -37,7 +37,8 @@ const useQuestionsPinia = defineStore('store', {
     getQuestionsData: (data) => data.questionsData,
     getQuestionsDataLength: (data) => data.questionsData.length,
     getCorrectAnswers: (data) => data.correctAnswers,
-    getIncorrectAnswers: (data) => data.inCorrectAnswers
+    getIncorrectAnswers: (data) => data.inCorrectAnswers,
+    getsaveAnswers : (data) => data.saveAnswers
   }
 })
 

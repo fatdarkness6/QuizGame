@@ -2,6 +2,7 @@
 import { watch, computed, onMounted } from 'vue'
 import { ref } from 'vue'
 import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore'
+import { useRouter } from 'vue-router'
 
 //------------------props------------------//
 
@@ -22,6 +23,8 @@ let checkButtons = ref({
   prevButtons: true,
   countForBtn: 1,
 })
+
+let router = useRouter()
 
 //------------------functions------------------//
 
@@ -92,7 +95,13 @@ function prevQuestion() {
   minusCountBtn()
   showPrevQuestion()
 }
-
+function setQueryParams(props) {
+  router.push(`?${props}`)
+}
+function finishQuiz() {
+  saveAnswer()
+  setQueryParams(`page=showQuizResult`)
+}
 //------------------watch---------------------//
 
 watch(selectedAnswer, newVal => {
@@ -124,12 +133,13 @@ onMounted(() => {
 
 <template>
   <div class="question">
-    <h1>{{ props.data.question }}</h1>
+    <h1 v-html="props.data.question"></h1>
   </div>
   <div class="answers">
     <div
       class="answer"
       v-for="(items, index) in randomAnswersComputed"
+      :id="[selectedAnswer == items && 'focusOnSeleletedAnswer']"
       :key="index"
       @click="selectedAnswer = items"
     >
@@ -154,7 +164,7 @@ onMounted(() => {
       </button>
     </div>
     <div class="submitAnswer">
-      <button>Finish Quiz</button>
+      <button @click="finishQuiz">Finish Quiz</button>
     </div>
   </div>
   <div class="typeOfQuestions">

@@ -1,5 +1,4 @@
-
-
 <template>
   <RouterView />
+  <notifications />
 </template>

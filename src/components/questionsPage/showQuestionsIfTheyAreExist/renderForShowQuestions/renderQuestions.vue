@@ -18,6 +18,7 @@ let emit = defineEmits(['indexOf'])
 const questionsPinia = useQuestionsPinia()
 
 //------------------variables------------------//
+
 let selectedAnswer = ref(null)
 let checkButtons = ref({
   nextButtons: false,

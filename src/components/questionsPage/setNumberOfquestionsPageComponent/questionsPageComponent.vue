@@ -1,4 +1,4 @@
-<script setup >
+<script setup>
 import { onMounted, ref } from 'vue'
 import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore'
 import { useRouter } from 'vue-router'

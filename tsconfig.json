@@ -40,6 +40,6 @@
 
 
     "src/**/*.vue"
-, "src/store/createQuestionsPiniaStore.js"  ],
+, "src/store/createQuestionsPiniaStore.js", "src/main.js", "src/utils/notifications/notifications.js"  ],
   "exclude": ["node_modules"]
 }

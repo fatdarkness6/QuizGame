@@ -84,7 +84,6 @@ function prevQuestion() {
 
 function getSavedAnswer(index) {
   const savedAnswer = questionsPinia.saveAnswers[index];
-  console.log(savedAnswer);
   return savedAnswer ? savedAnswer.selectedAnswer : null;
 }
 

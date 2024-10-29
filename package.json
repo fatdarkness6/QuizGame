@@ -14,19 +14,21 @@
     "@kyvg/vue3-notification": "^3.4.0",
     "axios": "^1.7.7",
     "pinia": "^2.2.4",
-    "typescript": "^5.6.3",
     "vue": "^3.5.12",
     "vue-router": "^4.4.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
+    "@types/node": "^22.8.2",
     "@vitejs/plugin-vue": "^5.1.4",
     "@vitejs/plugin-vue-jsx": "^4.0.1",
+    "@vue/cli-plugin-typescript": "^5.0.8",
     "@vue/eslint-config-prettier": "^10.0.0",
     "@vue/tsconfig": "^0.5.1",
     "eslint": "^9.13.0",
     "eslint-plugin-vue": "^9.29.0",
     "prettier": "^3.3.3",
+    "typescript": "^5.6.3",
     "vite": "^5.4.10"
   }
 }

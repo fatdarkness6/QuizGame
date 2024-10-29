@@ -5,33 +5,41 @@
     "strict": true,
     "jsx": "preserve",
     "moduleResolution": "node",
+    "experimentalDecorators": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "useDefineForClassFields": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "types": [
-      "vite/client"
-    ],
+
+
+
+    "types": ["webpack-env"],
     "paths": {
       "@/*": ["src/*"]
     },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ]
+
+
+
+
+
+
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx",
-    "env.d.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+
+
+
+
+
+
+
+
+    "src/**/*.vue"
+, "src/store/createQuestionsPiniaStore.js"  ],
+  "exclude": ["node_modules"]
 }

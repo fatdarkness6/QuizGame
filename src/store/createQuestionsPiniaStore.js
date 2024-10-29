@@ -16,7 +16,7 @@ const useQuestionsPinia = defineStore('store', {
           this.questionsData = res?.data?.results
         })
     },
-    saveAnswersFn(props) {
+    saveAnswersFn(props)  {
       let findIndex = this.saveAnswers.indexOf(props)
       if (findIndex !== -1) {
         this.saveAnswers.splice(findIndex, 1 , props)

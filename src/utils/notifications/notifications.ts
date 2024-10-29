@@ -2,7 +2,7 @@ import { useNotification } from '@kyvg/vue3-notification'
 
 const { notify } = useNotification()
 
-export function sucssesNotif(data) {
+export function sucssesNotif(data : string) {
   notify({
     title: 'Succses',
     text: data,
@@ -10,7 +10,7 @@ export function sucssesNotif(data) {
   })
 }
 
-export function errorNotif(data) {
+export function errorNotif(data : string) {
   notify({
     title: 'Error',
     text: data,
@@ -18,7 +18,7 @@ export function errorNotif(data) {
   })
 }
 
-export function warningNotif(data) {
+export function warningNotif(data : string) {
   notify({
     title: 'Warning',
     text: data,

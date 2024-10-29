@@ -1,22 +1,18 @@
-<script setup lang="ts">
+<script setup >
 import { onMounted, ref } from 'vue'
 import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore'
 import { useRouter } from 'vue-router'
 import { errorNotif, warningNotif } from '@/utils/notifications/notifications';
 
-//---------------------types-------------------//
-
-
-
 //--------------------pinia-----------------//
 
 const useQPinia = useQuestionsPinia()
 //--------------------variables---------------//
-let handleStaticValue  = ref<{numberOfQuestions : number, setLimitForClickStartQuiz : number}>({
+let handleStaticValue  = ref({
   numberOfQuestions: 0,
   setLimitForClickStartQuiz: 0,
 })
-let loading = ref<Boolean>(false)
+let loading = ref(false)
 
 let router = useRouter()
 //--------------------functions---------------//

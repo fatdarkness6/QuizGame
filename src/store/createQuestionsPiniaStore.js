@@ -13,7 +13,7 @@ const useQuestionsPinia = defineStore('store', {
       await axios
         .get(`https://opentdb.com/api.php?amount=${data}`)
         .then(res => {
-          this.questionsData = res.data.results
+          this.questionsData = res?.data?.results
         })
     },
     saveAnswersFn(props) {

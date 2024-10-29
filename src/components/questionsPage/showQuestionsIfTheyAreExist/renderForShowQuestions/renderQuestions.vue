@@ -34,8 +34,9 @@ function numberOfIndex() {
   return questionsPinia.getQuestionsData.indexOf(props.data)
 }
 function plusCountBtn() {
-  ++checkButtons.value.countForBtn
+  checkButtons.value.countForBtn +=1
 }
+
 function minusCountBtn() {
   if (checkButtons.value.countForBtn === 1) {
     return
@@ -68,7 +69,7 @@ function nexQuestion() {
   saveAnswer()
   plusCountBtn()
   sendDataForshowNextQuestion()
-  selectedAnswer.value = null
+  selectedAnswer.value = getSavedAnswer(numberOfIndex() + 1)
 }
 function sendDataForshowPrevQuestion() {
   emit('indexOf', numberOfIndex() - 1)
@@ -78,10 +79,19 @@ function sendDataForshowPrevQuestion() {
 function prevQuestion() {
   minusCountBtn()
   sendDataForshowPrevQuestion()
+  selectedAnswer.value = getSavedAnswer(numberOfIndex() - 1)
 }
+
+function getSavedAnswer(index) {
+  const savedAnswer = questionsPinia.saveAnswers[index];
+  console.log(savedAnswer);
+  return savedAnswer ? savedAnswer.selectedAnswer : null;
+}
+
 function setQueryParams(props) {
   router.push(`?${props}`)
 }
+
 function finishQuizFn() {
   saveAnswer()
   setQueryParams(`page=showQuizResult`)

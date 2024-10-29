@@ -1,7 +1,7 @@
 <script setup>
 
     let props = defineProps({
-        data : Object,
+        data : String,
         index : Number
     })
 
@@ -9,11 +9,10 @@
 
     //---------------functions---------------//
 
-
     function selectedAnswerFn() {
         emit('selectedAnswer' , props.data )
     }
-
+    
 </script>
 
 <template>

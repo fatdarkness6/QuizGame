@@ -166,7 +166,8 @@
   background-color: #dc3545;
 }
 .correctAnswerTxt,
-.incorrectAnswerTxt h2 {
+.incorrectAnswerTxt,
+.incorrectAnswersDEFULT {
   padding: 10px;
   font-size: 20px;
   margin: 0;
@@ -176,8 +177,6 @@
 }
 .incorrectAnswerTxt {
   border-bottom: 1px solid #d6adb2;
-}
-.incorrectAnswerTxt h2 {
   background-color: #f5c6cb;
 }
 .showQuestionsAfterSubmit .answer {

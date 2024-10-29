@@ -1,4 +1,7 @@
 <script setup>
+import renderIncorrectAnswer from './renderIncorrectAnswers/renderIncorrectAnswer.vue';
+
+
 
 const props = defineProps({
   data: Object,
@@ -13,9 +16,7 @@ const props = defineProps({
   </div>
   <div class="answer">
     <h2 v-html="props.data.correct_answer" class="correctAnswerTxt"></h2>
-    <div v-for="(items , index) in props.data.incorrect_answers" :key="index" class="incorrectAnswerTxt">
-      <h2  v-html="items"></h2>
-    </div>
+    <renderIncorrectAnswer v-for="(items , index) in props.data.incorrect_answers" :key="index" :data='items' :correctAnswer="props.data.correct_answer" :selectedAnswer="props.data.selectedAnswer"/>
   </div>
 </template>
 

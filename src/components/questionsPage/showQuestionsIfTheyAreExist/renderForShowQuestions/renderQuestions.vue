@@ -3,6 +3,7 @@ import { watch, computed, onMounted } from 'vue'
 import { ref } from 'vue'
 import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore'
 import { useRouter } from 'vue-router'
+import renderAnswers from './renderAnswers/renderAnswers.vue'
 
 //------------------props------------------//
 
@@ -118,15 +119,7 @@ onMounted(() => {
     <h1 v-html="props.data.question"></h1>
   </div>
   <div class="answers">
-    <div
-      class="answer"
-      v-for="(items, index) in randomAnswersComputed"
-      :id="[selectedAnswer == items && 'focusOnSeleletedAnswer']"
-      :key="index"
-      @click="selectedAnswer = items"
-    >
-      <button>{{ index + 1 }}. {{ items }}</button>
-    </div>
+    <renderAnswers v-for="(items, index) in randomAnswersComputed" :id="[selectedAnswer == items && 'focusOnSeleletedAnswer']" :key="index" :data="items" :index="index + 1" @selectedAnswer="(data) => selectedAnswer = data" />
   </div>
   <div class="logicalButtons">
     <div class="changeQuestion">

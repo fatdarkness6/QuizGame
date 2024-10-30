@@ -1,23 +1,33 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
+interface QuestionData {
+  type: string,
+  difficulty: string,
+  category: string,
+  question: string,
+  correct_answer: string,
+  incorrect_answers: string[],
+  selectedAnswer?: string,  // Optional if not always set
+}
+
 const useQuestionsPinia = defineStore('store', {
   state: () => ({
-    questionsData: [],
-    saveAnswers: [],
+    questionsData: [] as QuestionData[],  // Define questionsData type
+    saveAnswers: [] as QuestionData[], 
     correctAnswers : 0,
     inCorrectAnswers: 0
   }),
   actions: {
-    async setQuestionsData(data) {
+    async setQuestionsData(data : number) {
       await axios
         .get(`https://opentdb.com/api.php?amount=${data}`)
         .then(res => {
           this.questionsData = res?.data?.results
         })
     },
-    saveAnswersFn(props)  {
-      let findIndex = this.saveAnswers.indexOf(props)
+    saveAnswersFn(props : QuestionData)  {
+      const findIndex = this.saveAnswers.indexOf(props)
       if (findIndex !== -1) {
         this.saveAnswers.splice(findIndex, 1 , props)
       }else {
@@ -25,8 +35,8 @@ const useQuestionsPinia = defineStore('store', {
       }
     },
     calculateResults() {
-      let numberOfQuiz = this.saveAnswers.length
-      let correctQuizAnswers = this.saveAnswers.filter((e) => {
+      const numberOfQuiz = this.saveAnswers.length
+      const correctQuizAnswers = this.saveAnswers.filter((e : QuestionData) => {
         return e.correct_answer == e.selectedAnswer
       })
       this.correctAnswers = correctQuizAnswers.length

@@ -22,25 +22,25 @@ const questionsPinia = useQuestionsPinia()
 
 //--------------------functions------------------//
 
-function showNextData(index : number) {
-  if (index) {
+function showNextData(index: number) {
+  if (index !== undefined) {
     questionsData.value.questions.splice(
       0,
       1,
-      questionsPinia.getQuestionsData[index],
+      questionsPinia.getQuestionsData[index] as never,
     )
   } else {
     questionsData.value.questions.splice(
       0,
       1,
-      questionsPinia.getQuestionsData[0],
+      questionsPinia.getQuestionsData[0] as never,
     )
   }
 }
 //--------------------mounted------------------//
 
 onMounted(() => {
-  showNextData()
+  showNextData(0)
 })
 </script>
 

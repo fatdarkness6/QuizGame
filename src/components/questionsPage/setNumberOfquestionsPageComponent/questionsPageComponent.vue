@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore'
+import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore';
 import { useRouter } from 'vue-router'
 import { errorNotif , warningNotif } from '@/utils/notifications/notifications';
 

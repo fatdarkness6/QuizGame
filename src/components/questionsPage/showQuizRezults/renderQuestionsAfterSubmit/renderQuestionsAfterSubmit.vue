@@ -2,8 +2,17 @@
 import renderIncorrectAnswer from './renderIncorrectAnswers/renderIncorrectAnswer.vue';
 
 //--------------------types-----------------//
+
 interface Props {
-  data: object,
+  data: {
+    type: string,
+    difficulty: string,
+    category: string,
+    question: string,
+    correct_answer: string ,
+    incorrect_answers: string[],
+    selectedAnswer?: string ,  // Optional if not always set
+  }
   index : number
 }
 
@@ -17,7 +26,7 @@ const props = defineProps<Props>()
   </div>
   <div class="answer">
     <h2 v-html="props.data.correct_answer" class="correctAnswerTxt"></h2>
-    <renderIncorrectAnswer v-for="(items , index) in props.data.incorrect_answers" :key="index" :data='items' :correctAnswer="props.data.correct_answer" :selectedAnswer="props.data.selectedAnswer"/>
+    <renderIncorrectAnswer v-for="(items , index) in props.data.incorrect_answers" :key="index" :data='items' :correctAnswer="props.data.correct_answer" :selectedAnswer="props.data.selectedAnswer || ''"/>
   </div>
 </template>
 

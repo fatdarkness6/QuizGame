@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-mutating-props -->
 <script setup lang="ts">
 import { watch, computed, onMounted } from 'vue'
 import { ref } from 'vue'
@@ -9,7 +10,15 @@ import renderAnswers from './renderAnswers/renderAnswers.vue'
 //--------------------types------------------//
 
 interface Props {
-  data: object,
+  data: {
+    type: string,
+    difficulty: string,
+    category: string,
+    question: string,
+    correct_answer: string,
+    incorrect_answers: string[],
+    selectedAnswer?: string | number,  // Optional if not always set
+  }
 }
 
 interface Emit {
@@ -24,6 +33,7 @@ interface CheckButtons {
 //------------------props------------------//
 
 const props = defineProps<Props>()
+console.log(props.data);
 //--------------------emits------------------//
 
 const emit = defineEmits<Emit>()
@@ -34,7 +44,7 @@ const questionsPinia = useQuestionsPinia()
 
 //------------------variables------------------//
 
-const selectedAnswer = ref<number | null>(null)
+const selectedAnswer = ref<number | null | string>(null)
 const checkButtons = ref<CheckButtons>({
   nextButtons: false,
   prevButtons: true,
@@ -126,8 +136,8 @@ watch(
 //------------------computed------------------//
 
 const randomAnswersComputed = computed(() => {
-  const answers = [...props.data.incorrect_answers ]
-  answers.push(props.data.correct_answer)
+  const answers = [...(props.data as { incorrect_answers: string[] }).incorrect_answers]
+  answers.push((props.data as { correct_answer: string }).correct_answer)
   answers.sort(() => Math.random() - 0.5)
   return answers
 })
@@ -135,7 +145,7 @@ const randomAnswersComputed = computed(() => {
 //------------------mounted------------------//
 
 onMounted(() => {
-  checkButtonsFn()
+  checkButtonsFn(0)
 })
 </script>
 
@@ -173,3 +183,4 @@ onMounted(() => {
     <h3>Category : {{ props.data.category }}</h3>
   </div>
 </template>
+

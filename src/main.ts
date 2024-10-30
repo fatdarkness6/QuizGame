@@ -1,6 +1,7 @@
 import './assets/main.css'
 import { createWebHistory, createRouter } from 'vue-router'
 import questionsPage from './components/questionsPage/questionsPage.vue'
+import showHowManyUserParticipateInQuiz from './components/showHowManyUserParticipateInQuiz/showHowManyUserParticipateInQuiz.vue'
 import { createPinia } from 'pinia'
 import Notifications from '@kyvg/vue3-notification'
 
@@ -14,6 +15,10 @@ const router = createRouter({
       path: '/',
       component: questionsPage,
     },
+    {
+      path : "/userInfo",
+      component : showHowManyUserParticipateInQuiz
+    }
   ]
 })
 

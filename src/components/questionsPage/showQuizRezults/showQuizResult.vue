@@ -1,15 +1,33 @@
 <script setup lang="ts">
 import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore';
-import renderQuestionsAfterSubmit from './renderQuestionsAfterSubmit/renderQuestionsAfterSubmit.vue';
+import renderQuestionsAfterSubmit from './renderQuestionsAfterSubmit/renderReusebleQuestionsAfterSubmit.vue';
 import { onMounted } from 'vue'
+import { useRouter } from 'vue-router';
 
 
 //---------------------pinia---------------------//
+
 const questionsPinia = useQuestionsPinia()
+
+//--------------------variables------------------//
+
+  const router = useRouter()
+
+
+//--------------------function-------------------//
+
+function resetQuery() {
+  questionsPinia.makeEmptyQuestionsValue()
+  router.push(`/`)
+}
+
+//--------------------mouted---------------------//
 
 onMounted(() => {
   questionsPinia.calculateResults()
+  questionsPinia.setDatasInLocalStorage()
 })
+
 </script>
 
 <template>
@@ -23,5 +41,8 @@ onMounted(() => {
   </div>
     <div class="showQuestionsAfterSubmit">
       <renderQuestionsAfterSubmit v-for="(items , index) in questionsPinia.getsaveAnswers" :key="index" :data="items" :index="index+1" />
+    </div>
+    <div class="GoToHomePage">
+        <button @click="resetQuery">Go to Home Pgae</button>
     </div>
 </template>

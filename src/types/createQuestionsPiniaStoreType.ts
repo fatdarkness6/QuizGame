@@ -5,7 +5,21 @@ export interface QuestionData {
     question: string,
     correct_answer: string,
     incorrect_answers: string[],
-    selectedAnswer?: string,  // Optional if not always set
+    selectedAnswer?: string,  
   }
 
-  
+  export interface NameAndLastName {
+    name: string;
+    lastName: string;
+    crAnswers?: number,
+    inCrAnswers?: number,
+    answers?: {
+      type: string;
+      difficulty: string;
+      category: string;
+      question: string;
+      correct_answer: string;
+      incorrect_answers: string[];
+      selectedAnswer?: string;
+    }[]; 
+  }

@@ -17,6 +17,10 @@ const useQuestionsPinia = defineStore('store', {
       await axios
         .get(`https://opentdb.com/api.php?amount=${data}`)
         .then(res => {
+          res.data?.results?.map((e) => {
+            e.incorrect_answers.push(e.correct_answer)
+            e.incorrect_answers.sort(() => Math.random() - 0.5)
+          })
           this.questionsData = res?.data?.results
         })
     },
@@ -61,7 +65,7 @@ const useQuestionsPinia = defineStore('store', {
     getUserDataFromLocalStorage() {
       const data = localStorage.getItem('userData')
       if (data) {
-        this.userDataFromLocalStorage = JSON.parse(data) 
+        this.userDataFromLocalStorage = JSON.parse(data)
       } else {
         this.userDataFromLocalStorage = []
       }

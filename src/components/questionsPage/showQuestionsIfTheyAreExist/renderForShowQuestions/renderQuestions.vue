@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/no-mutating-props -->
 <script setup lang="ts">
-import { watch, computed, onMounted } from 'vue'
+import { watch, onMounted } from 'vue'
 import { ref } from 'vue'
 import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore'
 import { useRouter } from 'vue-router'
@@ -58,10 +58,11 @@ function checkButtonsFn(newVal : number) {
 
 function saveAnswer() {
   if (selectedAnswer.value === null) {
-    props.data.selectedAnswer = undefined; 
+    props.data.selectedAnswer = undefined;
   } else {
-    props.data.selectedAnswer = selectedAnswer.value.toString(); 
+    props.data.selectedAnswer = selectedAnswer.value.toString();
   }
+  console.log(props.data);
   questionsPinia.saveAnswersFn(props.data);
 }
 
@@ -76,12 +77,12 @@ function nexQuestion() {
 
   // Fetch the saved answer for the next question
   const savedAnswer = getSavedAnswer(numberOfIndex() + 1);
-  
+
   // Handle the possible types correctly
   if (savedAnswer === null || savedAnswer === undefined) {
-    selectedAnswer.value = null; 
+    selectedAnswer.value = null;
   } else {
-    selectedAnswer.value = savedAnswer; 
+    selectedAnswer.value = savedAnswer;
   }
 }
 
@@ -96,7 +97,7 @@ function prevQuestion() {
 
   // Fetch the saved answer for the previous question
   const savedAnswer = getSavedAnswer(numberOfIndex() - 1);
-  
+
   // Handle the possible types correctly
   if (savedAnswer === null || savedAnswer === undefined) {
     selectedAnswer.value = null; // Set to null if no answer is saved
@@ -133,12 +134,12 @@ watch(
 
 //------------------computed------------------//
 
-const randomAnswersComputed = computed(() => {
-  const answers = [...(props.data as { incorrect_answers: string[] }).incorrect_answers]
-  answers.push((props.data as { correct_answer: string }).correct_answer)
-  answers.sort(() => Math.random() - 0.5)
-  return answers
-})
+// const randomAnswersComputed = computed(() => {
+//   const answers = [...(props.data as { incorrect_answers: string[] }).incorrect_answers]
+//   answers.push((props.data as { correct_answer: string }).correct_answer)
+//   answers.sort(() => Math.random() - 0.5)
+//   return answers
+// })
 
 //------------------mounted------------------//
 
@@ -152,7 +153,7 @@ onMounted(() => {
     <h1 v-html="props.data.question"></h1>
   </div>
   <div class="answers">
-    <renderAnswers v-for="(items, index) in randomAnswersComputed" :id="[selectedAnswer == items && 'focusOnSeleletedAnswer']" :key="index" :data="items" :index="index + 1" @selectedAnswer="(data) => selectedAnswer = data" />
+    <renderAnswers v-for="(items, index) in props.data.incorrect_answers" :id="[selectedAnswer == items && 'focusOnSeleletedAnswer']" :key="index" :data="items" :index="index + 1" @selectedAnswer="(data) => selectedAnswer = data" />
   </div>
   <div class="logicalButtons">
     <div class="changeQuestion">

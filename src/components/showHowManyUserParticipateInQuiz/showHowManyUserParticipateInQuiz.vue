@@ -19,7 +19,8 @@ onMounted(() => {
     <div class="userInfo">
         <div class="wrapper">
             <div class="title">
-                <renderUsersInfo v-for="(items , index) in questionsPinia.UserDataFromLocalStorage" :key="index" :data="items" />
+                <h1 v-if="questionsPinia.UserDataFromLocalStorage.length ==0">You haven't participated in any Quiz yet.</h1>
+                <renderUsersInfo v-else v-for="(items , index) in questionsPinia.UserDataFromLocalStorage" :key="index" :data="items" />
             </div>
             <div class="backToHome">
                 <RouterLink to="/">

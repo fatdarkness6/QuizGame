@@ -13,6 +13,7 @@ const questionsData = ref<QuestionsData>({
 })
 
 //---------------------pinia---------------------//
+
 const questionsPinia = useQuestionsPinia()
 
 //--------------------functions------------------//

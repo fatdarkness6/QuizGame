@@ -10,7 +10,7 @@ const questionsPinia = useQuestionsPinia()
 const route = useRoute()
 //------------------computed---------------//
 
-const dataLength = computed(() => {
+const dataLength = computed<number>(() => {
   return questionsPinia.getQuestionsDataLength
 })
 </script>

@@ -3,20 +3,14 @@ import { onMounted, ref } from 'vue'
 import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore';
 import { useRouter } from 'vue-router'
 import { errorNotif , warningNotif } from '@/utils/notifications/notifications';
-
-//--------------------types-----------------//
-
-interface props {
-  numberOfQuestions : number,
-  setLimitForClickStartQuiz : number ,
-}
+import type { RefTypes } from '@/types/questionsPageComponentType';
 
 //--------------------pinia-----------------//
 
 const useQPinia = useQuestionsPinia()
 
 //--------------------variables---------------//
-const handleStaticValue  = ref <props>({
+const handleStaticValue  = ref <RefTypes>({
   numberOfQuestions: 0,
   setLimitForClickStartQuiz: 0,
 })

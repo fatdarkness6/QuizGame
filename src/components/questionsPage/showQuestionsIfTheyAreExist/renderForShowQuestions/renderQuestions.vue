@@ -5,35 +5,14 @@ import { ref } from 'vue'
 import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore'
 import { useRouter } from 'vue-router'
 import renderAnswers from './renderAnswers/renderAnswers.vue'
+import type { Props } from '@/types/sameTypes/sameTypes'
+import type { Emit , CheckButtons } from '@/types/showQuestionsIfTheyAreExistType/renderQuestionsType/renderQuestionsType'
 
 
-//--------------------types------------------//
-
-interface Props {
-  data: {
-    type: string,
-    difficulty: string,
-    category: string,
-    question: string,
-    correct_answer: string,
-    incorrect_answers: string[],
-    selectedAnswer?: string | number,  // Optional if not always set
-  }
-}
-
-interface Emit {
-  (e: 'indexOf', index: number): void
-}
-
-interface CheckButtons {
-  nextButtons: boolean,
-  prevButtons: boolean,
-  countForBtn: number,
-}
 //------------------props------------------//
 
 const props = defineProps<Props>()
-console.log(props.data);
+
 //--------------------emits------------------//
 
 const emit = defineEmits<Emit>()
@@ -79,11 +58,11 @@ function checkButtonsFn(newVal : number) {
 
 function saveAnswer() {
   if (selectedAnswer.value === null) {
-    props.data.selectedAnswer = ''
+    props.data.selectedAnswer = undefined; 
   } else {
-    props.data.selectedAnswer = selectedAnswer.value
+    props.data.selectedAnswer = selectedAnswer.value.toString(); 
   }
-  questionsPinia.saveAnswersFn(props.data)
+  questionsPinia.saveAnswersFn(props.data);
 }
 
 function sendDataForshowNextQuestion() {
@@ -91,20 +70,39 @@ function sendDataForshowNextQuestion() {
 }
 
 function nexQuestion() {
-  saveAnswer()
-  plusCountBtn()
-  sendDataForshowNextQuestion()
-  selectedAnswer.value = getSavedAnswer(numberOfIndex() + 1)
+  saveAnswer(); // Ensure selectedAnswer is saved correctly
+  plusCountBtn(); // Increment button count for navigation
+  sendDataForshowNextQuestion(); // Emit the event to go to the next question
+
+  // Fetch the saved answer for the next question
+  const savedAnswer = getSavedAnswer(numberOfIndex() + 1);
+  
+  // Handle the possible types correctly
+  if (savedAnswer === null || savedAnswer === undefined) {
+    selectedAnswer.value = null; 
+  } else {
+    selectedAnswer.value = savedAnswer; 
+  }
 }
+
 function sendDataForshowPrevQuestion() {
-  emit('indexOf', numberOfIndex() - 1)
+  emit('indexOf', numberOfIndex() - 1); // Emit the previous question index
 }
 
 
 function prevQuestion() {
-  minusCountBtn()
-  sendDataForshowPrevQuestion()
-  selectedAnswer.value = getSavedAnswer(numberOfIndex() - 1)
+  minusCountBtn(); // Decrease the button count for navigation
+  sendDataForshowPrevQuestion(); // Emit the event to go to the previous question
+
+  // Fetch the saved answer for the previous question
+  const savedAnswer = getSavedAnswer(numberOfIndex() - 1);
+  
+  // Handle the possible types correctly
+  if (savedAnswer === null || savedAnswer === undefined) {
+    selectedAnswer.value = null; // Set to null if no answer is saved
+  } else {
+    selectedAnswer.value = savedAnswer; // Assign the retrieved answer
+  }
 }
 
 function getSavedAnswer(index : number) {

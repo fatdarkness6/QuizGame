@@ -1,15 +1,7 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import type { QuestionData } from '@/types/createQuestionsPiniaStoreType'
 
-interface QuestionData {
-  type: string,
-  difficulty: string,
-  category: string,
-  question: string,
-  correct_answer: string,
-  incorrect_answers: string[],
-  selectedAnswer?: string,  // Optional if not always set
-}
 
 const useQuestionsPinia = defineStore('store', {
   state: () => ({

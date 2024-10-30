@@ -1,16 +1,9 @@
 <script setup lang="ts">
 import { ref , onMounted } from 'vue'
+import type { RenderAnswerData } from '@/types/sameTypes/sameTypes';
 
 
-//--------------------types-----------------//
-
-    interface Props {
-        data: string,
-        correctAnswer: string,
-        selectedAnswer: string
-    }
-
-    const props = defineProps<Props>()
+    const props = defineProps<RenderAnswerData>()
 
     //-------------------variables---------------------//
 

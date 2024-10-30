@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore'
+import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore';
 import renderQuestionsAfterSubmit from './renderQuestionsAfterSubmit/renderQuestionsAfterSubmit.vue';
 import { onMounted } from 'vue'
 

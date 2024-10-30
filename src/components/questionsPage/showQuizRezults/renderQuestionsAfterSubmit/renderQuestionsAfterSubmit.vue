@@ -1,20 +1,7 @@
 <script setup lang="ts">
 import renderIncorrectAnswer from './renderIncorrectAnswers/renderIncorrectAnswer.vue';
+import type { Props } from '@/types/sameTypes/sameTypes';
 
-//--------------------types-----------------//
-
-interface Props {
-  data: {
-    type: string,
-    difficulty: string,
-    category: string,
-    question: string,
-    correct_answer: string ,
-    incorrect_answers: string[],
-    selectedAnswer?: string ,  // Optional if not always set
-  }
-  index : number
-}
 
 const props = defineProps<Props>()
 

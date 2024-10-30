@@ -1,18 +1,9 @@
 <script setup lang="ts">
+import type { RenderAnswerData } from '@/types/sameTypes/sameTypes';
+import type { AnswerEmit } from '@/types/showQuestionsIfTheyAreExistType/renderQuestionsType/renderAnswersType/renderAnswersType';
 
-//--------------------types--------------------//
-interface Props {
-    data: string,
-    index: number,
-}
-interface Emit {
-    (e: 'selectedAnswer', data: string): void
-}
-
-
-    const props = defineProps<Props>()
-
-    const emit = defineEmits<Emit>()
+    const props = defineProps<RenderAnswerData>()
+    const emit = defineEmits<AnswerEmit>()
 
     //---------------functions---------------//
 

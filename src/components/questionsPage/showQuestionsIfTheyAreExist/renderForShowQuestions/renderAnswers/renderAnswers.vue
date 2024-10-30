@@ -15,6 +15,6 @@ import type { AnswerEmit } from '@/types/showQuestionsIfTheyAreExistType/renderQ
 
 <template>
     <div class="answer" @click="selectedAnswerFn">
-      <button>{{ props.index}}. {{ props.data }}</button>
+      <button v-html="`${props.index}. ${props.data}`"></button>
     </div>
 </template>

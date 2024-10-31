@@ -25,19 +25,15 @@ function showNextData(index: number) {
       1,
       questionsPinia.getQuestionsData[index] as never,
     )
-  } else {
-    questionsData.value.questions.splice(
-      0,
-      1,
-      questionsPinia.getQuestionsData[0] as never,
-    )
-  }
+  } 
 }
+
 //--------------------mounted------------------//
 
 onMounted(() => {
   showNextData(0)
 })
+
 </script>
 
 <template>

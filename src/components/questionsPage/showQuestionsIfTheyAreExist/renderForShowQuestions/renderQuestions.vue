@@ -6,8 +6,10 @@ import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore'
 import { useRouter } from 'vue-router'
 import renderAnswers from './renderAnswers/renderAnswers.vue'
 import type { Props } from '@/types/sameTypes/sameTypes'
-import type { Emit , CheckButtons } from '@/types/showQuestionsIfTheyAreExistType/renderQuestionsType/renderQuestionsType'
-
+import type {
+  Emit,
+  CheckButtons,
+} from '@/types/showQuestionsIfTheyAreExistType/renderQuestionsType/renderQuestionsType'
 
 //------------------props------------------//
 
@@ -38,7 +40,7 @@ function numberOfIndex() {
   return questionsPinia.getQuestionsData.indexOf(props.data)
 }
 function plusCountBtn() {
-  checkButtons.value.countForBtn +=1
+  checkButtons.value.countForBtn += 1
 }
 
 function minusCountBtn() {
@@ -49,7 +51,7 @@ function minusCountBtn() {
   }
 }
 
-function checkButtonsFn(newVal : number) {
+function checkButtonsFn(newVal: number) {
   const lengthOfArray = questionsPinia.getQuestionsDataLength
   const count = newVal || checkButtons.value.countForBtn
   checkButtons.value.nextButtons = count === lengthOfArray
@@ -58,12 +60,11 @@ function checkButtonsFn(newVal : number) {
 
 function saveAnswer() {
   if (selectedAnswer.value === null) {
-    props.data.selectedAnswer = undefined;
+    props.data.selectedAnswer = undefined
   } else {
-    props.data.selectedAnswer = selectedAnswer.value.toString();
+    props.data.selectedAnswer = selectedAnswer.value.toString()
   }
-  console.log(props.data);
-  questionsPinia.saveAnswersFn(props.data);
+  questionsPinia.saveAnswersFn(props.data)
 }
 
 function sendDataForshowNextQuestion() {
@@ -71,47 +72,42 @@ function sendDataForshowNextQuestion() {
 }
 
 function nexQuestion() {
-  saveAnswer(); // Ensure selectedAnswer is saved correctly
-  plusCountBtn(); // Increment button count for navigation
-  sendDataForshowNextQuestion(); // Emit the event to go to the next question
+  saveAnswer()
+  plusCountBtn()
+  sendDataForshowNextQuestion()
 
-  // Fetch the saved answer for the next question
-  const savedAnswer = getSavedAnswer(numberOfIndex() + 1);
+  const savedAnswer = getSavedAnswer(numberOfIndex() + 1)
 
-  // Handle the possible types correctly
   if (savedAnswer === null || savedAnswer === undefined) {
-    selectedAnswer.value = null;
+    selectedAnswer.value = null
   } else {
-    selectedAnswer.value = savedAnswer;
+    selectedAnswer.value = savedAnswer
   }
 }
 
 function sendDataForshowPrevQuestion() {
-  emit('indexOf', numberOfIndex() - 1); // Emit the previous question index
+  emit('indexOf', numberOfIndex() - 1)
 }
 
-
 function prevQuestion() {
-  minusCountBtn(); // Decrease the button count for navigation
-  sendDataForshowPrevQuestion(); // Emit the event to go to the previous question
+  minusCountBtn()
+  sendDataForshowPrevQuestion()
 
-  // Fetch the saved answer for the previous question
-  const savedAnswer = getSavedAnswer(numberOfIndex() - 1);
+  const savedAnswer = getSavedAnswer(numberOfIndex() - 1)
 
-  // Handle the possible types correctly
   if (savedAnswer === null || savedAnswer === undefined) {
-    selectedAnswer.value = null; // Set to null if no answer is saved
+    selectedAnswer.value = null
   } else {
-    selectedAnswer.value = savedAnswer; // Assign the retrieved answer
+    selectedAnswer.value = savedAnswer
   }
 }
 
-function getSavedAnswer(index : number) {
-  const savedAnswer = questionsPinia.saveAnswers[index];
-  return savedAnswer ? savedAnswer.selectedAnswer : null;
+function getSavedAnswer(index: number) {
+  const savedAnswer = questionsPinia.saveAnswers[index]
+  return savedAnswer ? savedAnswer.selectedAnswer : null
 }
 
-function setQueryParams(props : string) {
+function setQueryParams(props: string) {
   router.push(`?${props}`)
 }
 
@@ -132,14 +128,6 @@ watch(
   },
 )
 
-//------------------computed------------------//
-
-// const randomAnswersComputed = computed(() => {
-//   const answers = [...(props.data as { incorrect_answers: string[] }).incorrect_answers]
-//   answers.push((props.data as { correct_answer: string }).correct_answer)
-//   answers.sort(() => Math.random() - 0.5)
-//   return answers
-// })
 
 //------------------mounted------------------//
 
@@ -153,7 +141,14 @@ onMounted(() => {
     <h1 v-html="props.data.question"></h1>
   </div>
   <div class="answers">
-    <renderAnswers v-for="(items, index) in props.data.incorrect_answers" :id="[selectedAnswer == items && 'focusOnSeleletedAnswer']" :key="index" :data="items" :index="index + 1" @selectedAnswer="(data) => selectedAnswer = data" />
+    <renderAnswers
+      v-for="(items, index) in props.data.incorrect_answers"
+      :id="[selectedAnswer == items && 'focusOnSeleletedAnswer']"
+      :key="index"
+      :data="items"
+      :index="index + 1"
+      @selectedAnswer="data => (selectedAnswer = data)"
+    />
   </div>
   <div class="logicalButtons">
     <div class="changeQuestion">
@@ -182,4 +177,3 @@ onMounted(() => {
     <h3>Category : {{ props.data.category }}</h3>
   </div>
 </template>
-

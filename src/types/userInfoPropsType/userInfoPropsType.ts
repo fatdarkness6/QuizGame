@@ -1,5 +1,4 @@
 export interface UserInfoPropsType {
-    
     data: {
         name: string,
         lastName : string,

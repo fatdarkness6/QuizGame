@@ -1,20 +1,23 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
-import type { QuestionData , NameAndLastName } from '@/types/createQuestionsPiniaStoreType'
+import type { NameAndLastName } from '@/types/createQuestionsPiniaStoreType'
+import type { QuestionData } from '@/types/sameTypes/sameTypes'
 import _ from 'lodash'
-import { randomizeAnswers } from '@/utils/notifications/randomizeAnswers'
+import { randomizeAnswers } from '@/utils/randomizeAnswers'
+import { sortUsersByScore } from '@/utils/sortQuizesByScors'
+import type { User } from '@/types/sortUsers'
 
 const useQuestionsPinia = defineStore('store', {
   state: () => ({
-    questionsData: [] as QuestionData[],  // Define questionsData type
+    questionsData: [] as QuestionData[], 
     saveAnswers: [] as QuestionData[],
-    userDetails : {} as  NameAndLastName,
-    userDataFromLocalStorage : [] ,
-    correctAnswers : 0,
-    inCorrectAnswers: 0
+    userDetails: {} as NameAndLastName,
+    userDataFromLocalStorage: [] as User[],
+    correctAnswers: 0,
+    inCorrectAnswers: 0,
   }),
   actions: {
-    async setQuestionsData(data : number) {
+    async setQuestionsData(data: number) {
       await axios
         .get(`https://opentdb.com/api.php?amount=${data}`)
         .then(res => {
@@ -28,58 +31,57 @@ const useQuestionsPinia = defineStore('store', {
     makeEmptySaveAnswersValue() {
       this.saveAnswers = []
     },
-    saveAnswersFn(props : QuestionData)  {
+    saveAnswersFn(props: QuestionData) {
       const findIndex = this.saveAnswers.indexOf(props)
       if (findIndex !== -1) {
-        this.saveAnswers.splice(findIndex, 1 , props)
-      }else {
+        this.saveAnswers.splice(findIndex, 1, props)
+      } else {
         this.saveAnswers.push(props)
       }
     },
-    setNameAndLastName(data : NameAndLastName) {
+    setNameAndLastName(data: NameAndLastName) {
       this.userDetails = data
     },
     setDatasInLocalStorage() {
-        const userStorage = JSON.parse(localStorage.getItem('userData') || '[]');
+      const userStorage = JSON.parse(localStorage.getItem('userData') || '[]')
+      this.userDetails = {
+        ...this.userDetails,
+        answers: this.saveAnswers,
+        crAnswers: this.correctAnswers,
+        inCrAnswers: this.inCorrectAnswers,
+      }
 
-        this.userDetails = {
-          ...this.userDetails,
-          answers: this.saveAnswers,
-          crAnswers: this.correctAnswers,
-          inCrAnswers: this.inCorrectAnswers,
-        };
+      const updatedStorage = _.isEmpty(userStorage)
+        ? [this.userDetails]
+        : [...userStorage, this.userDetails]
 
-        // Check if userStorage is empty and push `userDetails` to it
-        const updatedStorage = _.isEmpty(userStorage) ? [this.userDetails] : [...userStorage, this.userDetails];
-
-        // Save updated data back to localStorage
-        localStorage.setItem('userData', JSON.stringify(updatedStorage));
-},
+      localStorage.setItem('userData', JSON.stringify(updatedStorage))
+    },
     calculateResults() {
       const numberOfQuiz = this.saveAnswers.length
-      const correctQuizAnswers = this.saveAnswers.filter((e : QuestionData) => {
+      const correctQuizAnswers = this.saveAnswers.filter((e: QuestionData) => {
         return e.correct_answer == e.selectedAnswer
       })
       this.correctAnswers = correctQuizAnswers.length
-      this.inCorrectAnswers = (numberOfQuiz - correctQuizAnswers.length)
+      this.inCorrectAnswers = numberOfQuiz - correctQuizAnswers.length
     },
     getUserDataFromLocalStorage() {
       const data = localStorage.getItem('userData')
       if (data) {
-        this.userDataFromLocalStorage = JSON.parse(data)
+        this.userDataFromLocalStorage = sortUsersByScore(JSON.parse(data))
       } else {
         this.userDataFromLocalStorage = []
       }
-    }
+    },
   },
   getters: {
-    getQuestionsData: (state) => state.questionsData,
-    getQuestionsDataLength: (state) => state.questionsData.length,
-    getCorrectAnswers: (state) => state.correctAnswers,
-    getIncorrectAnswers: (state) => state.inCorrectAnswers,
-    getsaveAnswers : (state) => state.saveAnswers,
-    UserDataFromLocalStorage : (state) => state.userDataFromLocalStorage
-  }
+    getQuestionsData: state => state.questionsData,
+    getQuestionsDataLength: state => state.questionsData.length,
+    getCorrectAnswers: state => state.correctAnswers,
+    getIncorrectAnswers: state => state.inCorrectAnswers,
+    getsaveAnswers: state => state.saveAnswers,
+    UserDataFromLocalStorage: state => state.userDataFromLocalStorage,
+  },
 })
 
 export { useQuestionsPinia }

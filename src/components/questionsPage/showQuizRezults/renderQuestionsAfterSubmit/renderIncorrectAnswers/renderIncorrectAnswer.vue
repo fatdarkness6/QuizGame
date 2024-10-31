@@ -26,8 +26,6 @@ import type { RenderAnswerData } from '@/types/sameTypes/sameTypes';
     onMounted(() => {
         checkSelectedAnswer()
     })
- //correctAnswerTxt , incorrectAnswerTxt
- console.log(props.selectedAnswer);
 </script>
 
 <template>

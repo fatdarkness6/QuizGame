@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { onMounted } from 'vue';
 import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore';
-import renderUsersInfo from './renderUsersInfo/renderUsersInfo.vue';
+import renderUsersInfo from '@/components/showHowManyUserParticipateInQuiz/renderUsersInfo/renderUsersInfo.vue';
 
 //---------------------pinia---------------------//
 

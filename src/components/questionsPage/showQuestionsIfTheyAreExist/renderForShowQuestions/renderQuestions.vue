@@ -37,7 +37,7 @@ const router = useRouter()
 //------------------functions------------------//
 
 function numberOfIndex() {
-  return questionsPinia.getQuestionsData.indexOf(props.data)
+  return questionsPinia.getAllQuestionsFromLocalST.indexOf(props.data)
 }
 function plusCountBtn() {
   checkButtons.value.countForBtn += 1
@@ -52,7 +52,7 @@ function minusCountBtn() {
 }
 
 function checkButtonsFn(newVal: number) {
-  const lengthOfArray = questionsPinia.getQuestionsDataLength
+  const lengthOfArray = questionsPinia.getAllQuestionsFromLocalST.length
   const count = newVal || checkButtons.value.countForBtn
   checkButtons.value.nextButtons = count === lengthOfArray
   checkButtons.value.prevButtons = count === 1
@@ -108,12 +108,12 @@ function getSavedAnswer(index: number) {
 }
 
 function setQueryParams(props: string) {
-  router.push(`?${props}`)
+  router.replace(`/${props}`)
 }
 
 function finishQuizFn() {
   saveAnswer()
-  setQueryParams(`page=showQuizResult`)
+  setQueryParams(`quizRezult`)
 }
 //------------------watch---------------------//
 

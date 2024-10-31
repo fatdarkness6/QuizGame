@@ -9,10 +9,11 @@ import type { User } from '@/types/sortUsers'
 
 const useQuestionsPinia = defineStore('store', {
   state: () => ({
-    questionsData: [] as QuestionData[], 
+    questionsData: [] as QuestionData[],
     saveAnswers: [] as QuestionData[],
     userDetails: {} as NameAndLastName,
     userDataFromLocalStorage: [] as User[],
+    allQuestionsDataFromLocalStorage: [] as QuestionData[],
     correctAnswers: 0,
     inCorrectAnswers: 0,
   }),
@@ -50,12 +51,24 @@ const useQuestionsPinia = defineStore('store', {
         crAnswers: this.correctAnswers,
         inCrAnswers: this.inCorrectAnswers,
       }
-
       const updatedStorage = _.isEmpty(userStorage)
         ? [this.userDetails]
         : [...userStorage, this.userDetails]
 
       localStorage.setItem('userData', JSON.stringify(updatedStorage))
+    },
+    setAllQuestionsToLocalStorage() {
+      const data = this.questionsData
+      localStorage.setItem('questions', JSON.stringify(data))
+    },
+    getAllQuestionsFromLocalStorage() {
+      const data = localStorage.getItem('questions')
+      if (data) {
+        this.allQuestionsDataFromLocalStorage = JSON.parse(data)
+      } 
+    },
+    removeAllQuestionsFromLocalStorage() {
+      localStorage.removeItem('questions')
     },
     calculateResults() {
       const numberOfQuiz = this.saveAnswers.length
@@ -65,6 +78,7 @@ const useQuestionsPinia = defineStore('store', {
       this.correctAnswers = correctQuizAnswers.length
       this.inCorrectAnswers = numberOfQuiz - correctQuizAnswers.length
     },
+
     getUserDataFromLocalStorage() {
       const data = localStorage.getItem('userData')
       if (data) {
@@ -81,6 +95,9 @@ const useQuestionsPinia = defineStore('store', {
     getIncorrectAnswers: state => state.inCorrectAnswers,
     getsaveAnswers: state => state.saveAnswers,
     UserDataFromLocalStorage: state => state.userDataFromLocalStorage,
+    getUserDetails: state => state.userDetails,
+    getAllQuestionsFromLocalST: state => state.allQuestionsDataFromLocalStorage,
+    getAllQuestionsFromLocalSTLength: state => state.allQuestionsDataFromLocalStorage.length,
   },
 })
 

@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 import type { QuestionData , NameAndLastName } from '@/types/createQuestionsPiniaStoreType'
 import _ from 'lodash'
+import { randomizeAnswers } from '@/utils/notifications/randomizeAnswers'
 
 const useQuestionsPinia = defineStore('store', {
   state: () => ({
@@ -17,15 +18,15 @@ const useQuestionsPinia = defineStore('store', {
       await axios
         .get(`https://opentdb.com/api.php?amount=${data}`)
         .then(res => {
-          res.data?.results?.map((e) => {
-            e.incorrect_answers.push(e.correct_answer)
-            e.incorrect_answers.sort(() => Math.random() - 0.5)
-          })
+          randomizeAnswers(res)
           this.questionsData = res?.data?.results
         })
     },
     makeEmptyQuestionsValue() {
       this.questionsData = []
+    },
+    makeEmptySaveAnswersValue() {
+      this.saveAnswers = []
     },
     saveAnswersFn(props : QuestionData)  {
       const findIndex = this.saveAnswers.indexOf(props)

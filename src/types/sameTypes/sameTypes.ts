@@ -1,3 +1,4 @@
+import type { QuestionData } from "../createQuestionsPiniaStoreType";
 export interface Props {
     data: {
       type: string,
@@ -18,4 +19,8 @@ export interface Props {
     selectedAnswer?: string
   }
 
-
+  export interface ResponseFromApi {
+    data: {
+      results: QuestionData[];
+    };
+  }

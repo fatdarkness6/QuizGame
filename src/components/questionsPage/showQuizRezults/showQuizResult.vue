@@ -18,6 +18,7 @@ const questionsPinia = useQuestionsPinia()
 
 function resetQuery() {
   questionsPinia.makeEmptyQuestionsValue()
+  questionsPinia.makeEmptySaveAnswersValue()
   router.push(`/`)
 }
 

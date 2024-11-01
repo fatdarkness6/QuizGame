@@ -18,21 +18,26 @@ const questionsPinia = useQuestionsPinia()
 //--------------------functions------------------//
 
 function showNextData(index: number) {
-  if (index !== undefined) {
-      console.log(questionsPinia.getAllQuestionsFromLocalST[index] , index); 
     questionsData.value.questions.splice(
       0,
       1,
-      questionsPinia.getAllQuestionsFromLocalST[index] as never,
+      questionsPinia.getAllQuestionsFromLocalST.fetchDatas[index] as never,
     )
-  }
 }
 
+function checkIndexFromLocalStorageIsExist() {
+  const data = questionsPinia.getAllQuestionsFromLocalST.numberOfIndex
+  if (data) {
+    return data
+  }else {
+    return 0
+  }
+}
 //--------------------mounted------------------//
 
 onMounted(() => {
   questionsPinia.getAllQuestionsFromLocalStorage()
-  showNextData(0)
+  showNextData(checkIndexFromLocalStorageIsExist())
 })
 </script>
 

@@ -37,22 +37,26 @@ const router = useRouter()
 //------------------functions------------------//
 
 function numberOfIndex() {
-  return questionsPinia.getAllQuestionsFromLocalST.indexOf(props.data)
+  return questionsPinia.getAllQuestionsFromLocalST.fetchDatas.indexOf(props.data)
 }
 function plusCountBtn() {
   checkButtons.value.countForBtn += 1
 }
 
 function minusCountBtn() {
+  const data = JSON.parse(localStorage.getItem('questions') || '[]')
   if (checkButtons.value.countForBtn === 1) {
     return
   } else {
     --checkButtons.value.countForBtn
+    console.log(data.numberOfIndex);
+    data.numberOfIndex = numberOfIndex()
+    localStorage.setItem('questions', JSON.stringify(data))
   }
 }
 
 function checkButtonsFn(newVal: number) {
-  const lengthOfArray = questionsPinia.getAllQuestionsFromLocalST.length
+  const lengthOfArray = questionsPinia.getAllQuestionsFromLocalST.fetchDatas.length
   const count = newVal || checkButtons.value.countForBtn
   checkButtons.value.nextButtons = count === lengthOfArray
   checkButtons.value.prevButtons = count === 1
@@ -64,7 +68,8 @@ function saveAnswer() {
   } else {
     props.data.selectedAnswer = selectedAnswer.value.toString()
   }
-  questionsPinia.saveAnswersFn(props.data)
+  const index = numberOfIndex() +1
+  questionsPinia.saveAnswersFn(props.data , index)
 }
 
 function sendDataForshowNextQuestion() {
@@ -94,7 +99,6 @@ function prevQuestion() {
   sendDataForshowPrevQuestion()
 
   const savedAnswer = getSavedAnswer(numberOfIndex() - 1)
-
   if (savedAnswer === null || savedAnswer === undefined) {
     selectedAnswer.value = null
   } else {
@@ -132,7 +136,7 @@ watch(
 //------------------mounted------------------//
 
 onMounted(() => {
-  checkButtonsFn(0)
+  checkButtonsFn(questionsPinia.getAllQuestionsFromLocalST.numberOfIndex)
 })
 </script>
 

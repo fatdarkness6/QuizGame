@@ -32,13 +32,17 @@ const useQuestionsPinia = defineStore('store', {
     makeEmptySaveAnswersValue() {
       this.saveAnswers = []
     },
-    saveAnswersFn(props: QuestionData) {
+    saveAnswersFn(props: QuestionData , index : number) {
+      const questions = JSON.parse(localStorage.getItem('questions') || '[]')
       const findIndex = this.saveAnswers.indexOf(props)
       if (findIndex !== -1) {
         this.saveAnswers.splice(findIndex, 1, props)
       } else {
         this.saveAnswers.push(props)
       }
+      questions.numberOfIndex = index
+      questions.savedAnswers = this.saveAnswers
+      localStorage.setItem('questions', JSON.stringify(questions))
     },
     setNameAndLastName(data: NameAndLastName) {
       this.userDetails = data
@@ -54,11 +58,13 @@ const useQuestionsPinia = defineStore('store', {
       const updatedStorage = _.isEmpty(userStorage)
         ? [this.userDetails]
         : [...userStorage, this.userDetails]
-
       localStorage.setItem('userData', JSON.stringify(updatedStorage))
     },
     setAllQuestionsToLocalStorage() {
-      const data = this.questionsData
+      const data = {
+        ...this.userDetails,
+        fetchDatas : this.questionsData,
+      }
       localStorage.setItem('questions', JSON.stringify(data))
     },
     getAllQuestionsFromLocalStorage() {
@@ -66,9 +72,6 @@ const useQuestionsPinia = defineStore('store', {
       if (data) {
         this.allQuestionsDataFromLocalStorage = JSON.parse(data)
       } 
-    },
-    removeAllQuestionsFromLocalStorage() {
-      localStorage.removeItem('questions')
     },
     calculateResults() {
       const numberOfQuiz = this.saveAnswers.length

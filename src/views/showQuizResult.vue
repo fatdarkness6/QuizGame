@@ -18,33 +18,31 @@ const savedAnswer = ref<object>({})
 //--------------------function-------------------//
 
 function resetQuery() {
-  router.push(`/`)
+  router.replace(`/`)
   questionsPinia.makeEmptySaveAnswersValue()
 }
 
 function slelectLastArrayFromLocalStorage() {
-  if(_.isEmpty(questionsPinia.UserDataFromLocalStorage)) {
-    router.push(`/`)
+  console.log(questionsPinia.getAllQuestionsFromLocalST);
+  if(_.isEmpty(questionsPinia.getAllQuestionsFromLocalST)) {
+    router.replace(`/`)
   }else {
-    savedAnswer.value = questionsPinia.UserDataFromLocalStorage?.at(-1);
+    savedAnswer.value = questionsPinia.getAllQuestionsFromLocalST;
   }
 }
 
 function setDataToLocalStorage() {
-  if(questionsPinia.getUserDetails.name || questionsPinia.getUserDetails.lastName ) {
+  if(!_.isEmpty(questionsPinia.getAllQuestionsFromLocalST)) {
     questionsPinia.setDatasInLocalStorage()
-  }else {
-    return 
   }
 }
 //--------------------mouted---------------------//
 
 onMounted(() => {
   questionsPinia.calculateResults()
+  questionsPinia.getAllQuestionsFromLocalStorage()
   setDataToLocalStorage()
-  questionsPinia.getUserDataFromLocalStorage()
   slelectLastArrayFromLocalStorage()
-  questionsPinia.removeAllQuestionsFromLocalStorage()
 })
 </script>
 
@@ -52,15 +50,15 @@ onMounted(() => {
   <div class="wrapper">
     <div class="flx-column-center gap-20">
       <div class="correctAnswers">
-        <h1>correctAnswers: {{ savedAnswer?.crAnswers }}</h1>
+        <h1>correctAnswers: {{ savedAnswer.correctAnswers }}</h1>
       </div>
       <div class="incorrectAnswers">
-        <h1>incorrectAnswers: {{ savedAnswer?.inCrAnswers }}</h1>
+        <h1>incorrectAnswers: {{ savedAnswer.inCorrectAnswers }}</h1>
       </div>
     </div>
     <div class="showQuestionsAfterSubmit">
       <renderReusebleQuestionsAfterSubmit
-        v-for="(items, index) in savedAnswer.answers"
+        v-for="(items, index) in savedAnswer.savedAnswers"
         :key="index"
         :data="items"
         :index="index + 1"

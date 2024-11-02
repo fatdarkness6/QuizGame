@@ -30,7 +30,7 @@ function startQuiz() {
       .setQuestionsData(handleStaticValue.value.numberOfQuestions)
       .then(() => {
         useQPinia.setAllQuestionsToLocalStorage()
-        router.push(`/questions`)
+        router.replace(`/questions`)
       })
       .catch((err: string) => {
         errorNotif(`ErrorForStartQuiz: ${err}`)

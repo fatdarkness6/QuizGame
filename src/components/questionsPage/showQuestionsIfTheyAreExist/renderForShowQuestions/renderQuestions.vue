@@ -37,7 +37,9 @@ const router = useRouter()
 //------------------functions------------------//
 
 function numberOfIndex() {
-  return questionsPinia.getAllQuestionsFromLocalST.fetchDatas.indexOf(props.data)
+  return questionsPinia.getAllQuestionsFromLocalST.fetchDatas.indexOf(
+    props.data,
+  )
 }
 function plusCountBtn() {
   checkButtons.value.countForBtn += 1
@@ -49,15 +51,15 @@ function minusCountBtn() {
     return
   } else {
     --checkButtons.value.countForBtn
-    console.log(data.numberOfIndex);
-    data.numberOfIndex = numberOfIndex()
+    data.numberOfIndex = numberOfIndex() - 1
     localStorage.setItem('questions', JSON.stringify(data))
   }
 }
 
-function checkButtonsFn(newVal: number) {
-  const lengthOfArray = questionsPinia.getAllQuestionsFromLocalST.fetchDatas.length
-  const count = newVal || checkButtons.value.countForBtn
+function checkButtonsFn() {
+  const lengthOfArray =
+    questionsPinia.getAllQuestionsFromLocalST.fetchDatas.length
+  const count = checkButtons.value.countForBtn
   checkButtons.value.nextButtons = count === lengthOfArray
   checkButtons.value.prevButtons = count === 1
 }
@@ -68,8 +70,8 @@ function saveAnswer() {
   } else {
     props.data.selectedAnswer = selectedAnswer.value.toString()
   }
-  const index = numberOfIndex() +1
-  questionsPinia.saveAnswersFn(props.data , index)
+  const index = numberOfIndex() + 1
+  questionsPinia.saveAnswersFn(props.data, index)
 }
 
 function sendDataForshowNextQuestion() {
@@ -80,14 +82,7 @@ function nexQuestion() {
   saveAnswer()
   plusCountBtn()
   sendDataForshowNextQuestion()
-
-  const savedAnswer = getSavedAnswer(numberOfIndex() + 1)
-
-  if (savedAnswer === null || savedAnswer === undefined) {
-    selectedAnswer.value = null
-  } else {
-    selectedAnswer.value = savedAnswer
-  }
+  setSelectedAnswer('plus')
 }
 
 function sendDataForshowPrevQuestion() {
@@ -97,17 +92,27 @@ function sendDataForshowPrevQuestion() {
 function prevQuestion() {
   minusCountBtn()
   sendDataForshowPrevQuestion()
+  setSelectedAnswer('minos')
+}
 
-  const savedAnswer = getSavedAnswer(numberOfIndex() - 1)
+function setSelectedAnswer(props: string) {
+  const conditions =
+    props == 'minos'
+      ? numberOfIndex() - 1
+      : props == 'plus'
+        ? numberOfIndex() + 1
+        : numberOfIndex()
+  const savedAnswer = getSavedAnswer(conditions)
   if (savedAnswer === null || savedAnswer === undefined) {
     selectedAnswer.value = null
   } else {
     selectedAnswer.value = savedAnswer
   }
 }
-
 function getSavedAnswer(index: number) {
-  const savedAnswer = questionsPinia.saveAnswers[index]
+  const savedAnswer = questionsPinia.getAllQuestionsFromLocalST.savedAnswers
+    ? questionsPinia.getAllQuestionsFromLocalST?.savedAnswers[index]
+    : null
   return savedAnswer ? savedAnswer.selectedAnswer : null
 }
 
@@ -119,6 +124,7 @@ function finishQuizFn() {
   saveAnswer()
   setQueryParams(`quizRezult`)
 }
+
 //------------------watch---------------------//
 
 watch(selectedAnswer, newVal => {
@@ -127,16 +133,19 @@ watch(selectedAnswer, newVal => {
 
 watch(
   () => checkButtons.value.countForBtn,
-  newVal => {
-    checkButtonsFn(newVal)
+  () => {
+    checkButtonsFn()
   },
 )
-
 
 //------------------mounted------------------//
 
 onMounted(() => {
-  checkButtonsFn(questionsPinia.getAllQuestionsFromLocalST.numberOfIndex)
+  checkButtons.value.countForBtn =
+    questionsPinia.getAllQuestionsFromLocalST.numberOfIndex + 1
+  checkButtonsFn()
+  setSelectedAnswer('')
+  questionsPinia.setSaveAnswerFromLocalStorage()
 })
 </script>
 

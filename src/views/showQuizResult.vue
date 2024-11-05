@@ -23,7 +23,6 @@ function resetQuery() {
 }
 
 function slelectLastArrayFromLocalStorage() {
-  console.log(questionsPinia.getAllQuestionsFromLocalST);
   if(_.isEmpty(questionsPinia.getAllQuestionsFromLocalST)) {
     router.replace(`/`)
   }else {

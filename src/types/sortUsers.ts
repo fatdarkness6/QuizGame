@@ -6,4 +6,5 @@ export interface User {
     answers: QuestionData[];  // Ensure this matches QuestionData[]
     crAnswers: number;
     inCrAnswers: number;
+    id? : string;
   }

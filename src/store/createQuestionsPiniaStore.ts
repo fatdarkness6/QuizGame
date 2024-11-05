@@ -6,6 +6,7 @@ import _ from 'lodash'
 import { randomizeAnswers } from '@/utils/randomizeAnswers'
 import { sortUsersByScore } from '@/utils/sortQuizesByScors'
 import type { User } from '@/types/sortUsers'
+import { generateId } from '@/utils/generateId'
 
 const useQuestionsPinia = defineStore('store', {
   state: () => ({
@@ -26,9 +27,6 @@ const useQuestionsPinia = defineStore('store', {
           this.questionsData = res?.data?.results
         })
     },
-    makeEmptyQuestionsValue() {
-      this.questionsData = []
-    },
     makeEmptySaveAnswersValue() {
       this.saveAnswers = []
     },
@@ -44,6 +42,11 @@ const useQuestionsPinia = defineStore('store', {
       questions.savedAnswers = this.saveAnswers
       localStorage.setItem('questions', JSON.stringify(questions))
     },
+    setSaveAnswerFromLocalStorage() {
+      const questions = JSON.parse(localStorage.getItem('questions') || '[]')
+      const check = questions.savedAnswers ? questions.savedAnswers : []
+      this.saveAnswers = check
+    },
     setNameAndLastName(data: NameAndLastName) {
       this.userDetails = data
     },
@@ -56,16 +59,19 @@ const useQuestionsPinia = defineStore('store', {
         answers: questionsStorage.savedAnswers,
         crAnswers: questionsStorage.correctAnswers,
         inCrAnswers: questionsStorage.inCorrectAnswers,
+        id : questionsStorage.id
       }
-      const updatedStorage = _.isEmpty(userStorage)
-        ? [this.userDetails]
-        : [...userStorage, this.userDetails]
+      const preventDuplicate = userStorage.find((item :QuestionData) => item.id === this.userDetails.id)
+      const updatedStorage = _.isEmpty(userStorage) ? [this.userDetails] : preventDuplicate ? userStorage : [...userStorage, this.userDetails]
+
       localStorage.setItem('userData', JSON.stringify(updatedStorage))
     },
     setAllQuestionsToLocalStorage() {
       const data = {
         ...this.userDetails,
         fetchDatas : this.questionsData,
+        id : generateId(),
+        numberOfIndex : 0
       }
       localStorage.setItem('questions', JSON.stringify(data))
     },
@@ -74,6 +80,14 @@ const useQuestionsPinia = defineStore('store', {
       if (data) {
         this.allQuestionsDataFromLocalStorage = JSON.parse(data)
       } 
+    },
+    getUserDataFromLocalStorage() {
+      const data = localStorage.getItem('userData')
+      if (data) {
+        this.userDataFromLocalStorage = sortUsersByScore(JSON.parse(data))
+      } else {
+        this.userDataFromLocalStorage = []
+      }
     },
     calculateResults() {
       const questions = JSON.parse(localStorage.getItem('questions') || '[]')
@@ -85,19 +99,8 @@ const useQuestionsPinia = defineStore('store', {
       questions.inCorrectAnswers = numberOfQuiz - correctQuizAnswers?.length
       localStorage.setItem('questions', JSON.stringify(questions))
     },
-
-    getUserDataFromLocalStorage() {
-      const data = localStorage.getItem('userData')
-      if (data) {
-        this.userDataFromLocalStorage = sortUsersByScore(JSON.parse(data))
-      } else {
-        this.userDataFromLocalStorage = []
-      }
-    },
   },
   getters: {
-    getQuestionsData: state => state.questionsData,
-    getQuestionsDataLength: state => state.questionsData.length,
     getCorrectAnswers: state => state.correctAnswers,
     getIncorrectAnswers: state => state.inCorrectAnswers,
     getsaveAnswers: state => state.saveAnswers,

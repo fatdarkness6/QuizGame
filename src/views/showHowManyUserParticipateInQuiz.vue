@@ -2,10 +2,21 @@
 import { onMounted } from 'vue';
 import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore';
 import renderUsersInfo from '@/components/showHowManyUserParticipateInQuiz/renderUsersInfo/renderUsersInfo.vue';
+import { useRouter } from 'vue-router';
 
 //---------------------pinia---------------------//
 
 const questionsPinia = useQuestionsPinia()
+
+//---------------------variables-----------------//
+
+const router = useRouter()
+
+//---------------------functions-----------------//
+
+function goToHomePgae() {
+    router.replace(`/`)
+}
 
 //---------------------mouted--------------------//
 
@@ -23,9 +34,7 @@ onMounted(() => {
                 <renderUsersInfo v-else v-for="(items , index) in questionsPinia.UserDataFromLocalStorage" :key="index" :data="items" />
             </div>
             <div class="backToHome">
-                <RouterLink to="/">
-                    <button>back to home</button>
-                </RouterLink>
+                    <button @click="goToHomePgae">back to home</button>
             </div>
         </div>
     </div>

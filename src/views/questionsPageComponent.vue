@@ -70,6 +70,9 @@ function submitForStartQuiz() {
   }
 }
 
+function goToUserInfo() {
+  router.replace(`/userInfo`)
+}
 
 </script>
 
@@ -106,9 +109,7 @@ function submitForStartQuiz() {
         </div>
       </div>
       <div class="navigateToParticipatesQuiz">
-        <RouterLink to="/userInfo">
-          <button>click here to see how many Quizes you Participated</button>
-        </RouterLink>
+        <button @click="goToUserInfo">click here to see how many Quizes you Participated</button>
       </div>
     </form>
   </div>

@@ -37,9 +37,9 @@ const router = useRouter()
 //------------------functions------------------//
 
 function numberOfIndex() {
-  return questionsPinia.getAllQuestionsFromLocalST.fetchDatas.indexOf(
-    props.data,
-  )
+  return questionsPinia.getAllQuestionsFromLocalST.fetchDatas.findIndex((items) => {
+    return items.question === props.data.question
+  })
 }
 function plusCountBtn() {
   checkButtons.value.countForBtn += 1
@@ -109,10 +109,12 @@ function setSelectedAnswer(props: string) {
     selectedAnswer.value = savedAnswer
   }
 }
+
 function getSavedAnswer(index: number) {
+  console.log(questionsPinia.getAllQuestionsFromLocalST , index);
   const savedAnswer = questionsPinia.getAllQuestionsFromLocalST.savedAnswers
-    ? questionsPinia.getAllQuestionsFromLocalST?.savedAnswers[index]
-    : null
+    && questionsPinia.getAllQuestionsFromLocalST?.savedAnswers[index] 
+
   return savedAnswer ? savedAnswer.selectedAnswer : null
 }
 

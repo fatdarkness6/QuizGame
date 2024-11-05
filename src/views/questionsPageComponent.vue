@@ -19,6 +19,7 @@ const handleStaticValue = ref<RefTypes>({
 const loading = ref<boolean>(false)
 
 const router = useRouter()
+
 //--------------------functions---------------//
 
 function startQuiz() {

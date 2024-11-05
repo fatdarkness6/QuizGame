@@ -18,6 +18,7 @@ const questionsPinia = useQuestionsPinia()
 //--------------------functions------------------//
 
 function showNextData(index: number) {
+  questionsPinia.getAllQuestionsFromLocalStorage()
     questionsData.value.questions.splice(
       0,
       1,
@@ -33,6 +34,7 @@ function checkIndexFromLocalStorageIsExist() {
     return 0
   }
 }
+
 //--------------------mounted------------------//
 
 onMounted(() => {

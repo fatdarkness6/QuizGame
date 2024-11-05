@@ -7,6 +7,7 @@ import { randomizeAnswers } from '@/utils/randomizeAnswers'
 import { sortUsersByScore } from '@/utils/sortQuizesByScors'
 import type { User } from '@/types/sortUsers'
 import { generateId } from '@/utils/generateId'
+import type { AllDatasFromLocalStorageType } from '@/types/allDatasFromLocalStorageType'
 
 const useQuestionsPinia = defineStore('store', {
   state: () => ({
@@ -14,7 +15,17 @@ const useQuestionsPinia = defineStore('store', {
     saveAnswers: [] as QuestionData[],
     userDetails: {} as NameAndLastName,
     userDataFromLocalStorage: [] as User[],
-    allQuestionsDataFromLocalStorage: [] as QuestionData[],
+    allQuestionsDataFromLocalStorage: {
+      id: '',
+      name: '',
+      lastName: '',
+      score: 0,
+      fetchDatas: [] as QuestionData[],
+      numberOfIndex: 0,
+      correctAnswers: 0,
+      inCorrectAnswers: 0,
+      savedAnswers: [],
+    } as AllDatasFromLocalStorageType,
     correctAnswers: 0,
     inCorrectAnswers: 0,
   }),
@@ -30,9 +41,10 @@ const useQuestionsPinia = defineStore('store', {
     makeEmptySaveAnswersValue() {
       this.saveAnswers = []
     },
+
     saveAnswersFn(props: QuestionData , index : number) {
       const questions = JSON.parse(localStorage.getItem('questions') || '[]')
-      const findIndex = this.saveAnswers.indexOf(props)
+      const findIndex = this.saveAnswers.findIndex(item => item.question === props.question)
       if (findIndex !== -1) {
         this.saveAnswers.splice(findIndex, 1, props)
       } else {
@@ -42,11 +54,13 @@ const useQuestionsPinia = defineStore('store', {
       questions.savedAnswers = this.saveAnswers
       localStorage.setItem('questions', JSON.stringify(questions))
     },
+
     setSaveAnswerFromLocalStorage() {
       const questions = JSON.parse(localStorage.getItem('questions') || '[]')
       const check = questions.savedAnswers ? questions.savedAnswers : []
       this.saveAnswers = check
     },
+
     setNameAndLastName(data: NameAndLastName) {
       this.userDetails = data
     },
@@ -107,7 +121,7 @@ const useQuestionsPinia = defineStore('store', {
     UserDataFromLocalStorage: state => state.userDataFromLocalStorage,
     getUserDetails: state => state.userDetails,
     getAllQuestionsFromLocalST: state => state.allQuestionsDataFromLocalStorage,
-    getAllQuestionsFromLocalSTLength: state => state.allQuestionsDataFromLocalStorage.length,
+   getAllQuestionsFromLocalSTLength: state => state.allQuestionsDataFromLocalStorage.fetchDatas.length,
   },
 })
 

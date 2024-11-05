@@ -3,6 +3,7 @@ import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore'
 import renderReusebleQuestionsAfterSubmit from '@/components/questionsPage/showQuizRezults/renderQuestionsAfterSubmit/renderReusebleQuestionsAfterSubmit.vue'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import type { saveQuizRezult } from '@/types/saveQuizRezultType'
 import _ from 'lodash'
 
 //---------------------pinia---------------------//
@@ -13,7 +14,7 @@ const questionsPinia = useQuestionsPinia()
 
 const router = useRouter()
 
-const savedAnswer = ref<object>({})
+const savedAnswer = ref<saveQuizRezult>({})
 
 //--------------------function-------------------//
 

@@ -5,6 +5,7 @@ import { ref } from 'vue'
 import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore'
 import { useRouter } from 'vue-router'
 import renderAnswers from './renderAnswers/renderAnswers.vue'
+import { parseQuestions } from '@/utils/parseDatasFromLocalStorage'
 import type { Props } from '@/types/sameTypes/sameTypes'
 import type {
   Emit,
@@ -46,7 +47,7 @@ function plusCountBtn() {
 }
 
 function minusCountBtn() {
-  const data = JSON.parse(localStorage.getItem('questions') || '[]')
+  const data = parseQuestions()
   if (checkButtons.value.countForBtn === 1) {
     return
   } else {

@@ -10,7 +10,6 @@ export interface QuestionData {
 }
 export interface Props {
   data: QuestionData
-  index?: number
 }
 
 export interface RenderAnswerData {

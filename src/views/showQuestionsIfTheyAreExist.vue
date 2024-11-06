@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore'
 import { onMounted, ref } from 'vue'
-import renderQuestions from '@/components/questionsPage/showQuestionsIfTheyAreExist/renderForShowQuestions/renderQuestions.vue'
+import renderQuestions from '@/components/renderForShowQuestions/renderQuestions.vue';
 import type { QuestionsData } from '@/types/showQuestionsIfTheyAreExistType/showQuestionsIfTheyAreExistType'
 
 //----------------variables---------------------//

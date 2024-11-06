@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore'
-import renderReusebleQuestionsAfterSubmit from '@/components/questionsPage/showQuizRezults/renderQuestionsAfterSubmit/renderReusebleQuestionsAfterSubmit.vue'
+import renderReusebleQuestionsAfterSubmit from '@/components/renderQuestionsAfterSubmit/renderReusebleQuestionsAfterSubmit.vue'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import type { saveQuizRezult } from '@/types/saveQuizRezultType'
@@ -61,7 +61,6 @@ onMounted(() => {
         v-for="(items, index) in savedAnswer.savedAnswers"
         :key="index"
         :data="items"
-        :index="index + 1"
       />
     </div>
     <div class="GoToHomePage">

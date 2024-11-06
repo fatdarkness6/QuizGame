@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { defineProps, ref } from 'vue';
 import type { UserInfoPropsType } from '@/types/userInfoPropsType/userInfoPropsType';
-import  renderReusebleQuestionsAfterSubmit from '@/components/questionsPage/showQuizRezults/renderQuestionsAfterSubmit/renderReusebleQuestionsAfterSubmit.vue';
+import renderReusebleQuestionsAfterSubmit from '../renderQuestionsAfterSubmit/renderReusebleQuestionsAfterSubmit.vue';
 
 const props = defineProps<UserInfoPropsType>()
     

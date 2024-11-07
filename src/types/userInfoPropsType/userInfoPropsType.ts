@@ -11,7 +11,7 @@ export interface UserInfoPropsType {
             incorrect_answers: string[];
             selectedAnswer?: string; // Optional
         }> | undefined;
-        crAnswers: number,
-        inCrAnswers: number,
+        rightAnswer: number,
+        wrongAnswers: number,
     },
 }

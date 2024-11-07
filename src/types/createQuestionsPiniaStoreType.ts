@@ -1,17 +1,9 @@
-
+import type { QuestionsData } from "./showQuestionsIfTheyAreExistType";
   export interface NameAndLastName {
     name: string;
     lastName: string;
-    crAnswers?: number,
-    inCrAnswers?: number,
-    answers?: {
-      type: string;
-      difficulty: string;
-      category: string;
-      question: string;
-      correct_answer: string;
-      incorrect_answers: string[];
-      selectedAnswer?: string;
-    }[]; 
+    rightAnswer?: number,
+    wrongAnswers?: number,
+    answers?: QuestionsData[]; 
     id ? : string;
   }

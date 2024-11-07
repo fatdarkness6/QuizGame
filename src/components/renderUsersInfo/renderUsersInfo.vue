@@ -30,10 +30,10 @@ function showInfos() {
             </div>
             <div class="ans flx-right">
                 <div class="rightAnswers">
-                <h3>( correctAnswers : {{ props.data.crAnswers }} )</h3>
+                <h3>( correctAnswers : {{ props.data.rightAnswer }} )</h3>
                 </div>
                 <div class="wrongAnswers">
-                    <h3>( IncorrectAnswers : {{ props.data.inCrAnswers }} )</h3>
+                    <h3>( IncorrectAnswers : {{ props.data.wrongAnswers }} )</h3>
                 </div>
             </div>
             

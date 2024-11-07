@@ -27,7 +27,7 @@ function showNextData(index: number) {
 }
 
 function checkIndexFromLocalStorageIsExist() {
-  const data = questionsPinia.getAllQuestionsFromLocalST.numberOfIndex
+  const data = questionsPinia.getAllQuestionsFromLocalST.saveItemsIndex
   if (data) {
     return data
   }else {

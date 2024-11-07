@@ -75,8 +75,8 @@ const useQuestionsPinia = defineStore('store', {
         name: questionsStorage.name,
         lastName: questionsStorage.lastName,
         answers: questionsStorage.savedAnswers,
-        crAnswers: questionsStorage.correctAnswers,
-        inCrAnswers: questionsStorage.inCorrectAnswers,
+        rightAnswer: questionsStorage.correctAnswers,
+        wrongAnswers: questionsStorage.inCorrectAnswers,
         id: questionsStorage.id,
       }
       const preventDuplicate = userStorage.find(

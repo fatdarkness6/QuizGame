@@ -7,7 +7,7 @@ import type { QuestionsData } from '@/types/showQuestionsIfTheyAreExistType';
 //----------------variables---------------------//
 
 const questionsData = ref<QuestionsData>({
-  questions: [],
+  selectedQuestion: {},
   numberOfQuestions: 0,
 })
 
@@ -19,11 +19,12 @@ const questionsPinia = useQuestionsPinia()
 
 function showNextData(index: number) {
   questionsPinia.getAllQuestionsFromLocalStorage()
-    questionsData.value.questions.splice(
-      0,
-      1,
-      questionsPinia.getAllQuestionsFromLocalST.fetchDatas[index] as never,
-    )
+    // questionsData.value.selectedQuestion.splice(
+    //   0,
+    //   1,
+    //   questionsPinia.getAllQuestionsFromLocalST.fetchDatas[index] as never,
+    // )
+    questionsData.value.selectedQuestion = questionsPinia.getAllQuestionsFromLocalST.fetchDatas[index]
 }
 
 function checkIndexFromLocalStorageIsExist() {
@@ -51,9 +52,8 @@ onMounted(() => {
       </div>
       <div class="part2">
         <renderQuestions
-          v-for="(items, index) in questionsData.questions"
-          :key="index"
-          :data="items"
+          
+          :data="questionsData.selectedQuestion"
           @indexOf="showNextData"
         />
       </div>

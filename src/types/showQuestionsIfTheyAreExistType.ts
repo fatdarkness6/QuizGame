@@ -1,4 +1,4 @@
 export interface QuestionsData {
-    questions: [],
+  selectedQuestion: object,
     numberOfQuestions: number,
   }

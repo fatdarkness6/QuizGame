@@ -9,9 +9,10 @@ export interface QuestionData {
   selectedAnswer?: string
   id?: string
 }
+
 export interface Props {
-  data: QuestionData,
-  index ? : number
+  data: QuestionData
+  index?: number
 }
 
 export interface RenderAnswerData {

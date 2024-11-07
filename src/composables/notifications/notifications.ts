@@ -1,8 +1,7 @@
 import { useNotification } from '@kyvg/vue3-notification'
 
-const { notify } = useNotification()
-
 export function useNotify() {
+  const { notify } = useNotification()
   function successNotif(data: string) {
     notify({
       title: 'Success',

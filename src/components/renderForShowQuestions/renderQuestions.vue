@@ -160,7 +160,7 @@ onMounted(() => {
   </div>
   <div class="answers">
     <renderAnswers
-      v-for="(items, index) in props.data.incorrect_answers"
+      v-for="(items, index) in props.data.options"
       :id="[selectedAnswer == items && 'focusOnSeleletedAnswer']"
       :key="index"
       :data="items"

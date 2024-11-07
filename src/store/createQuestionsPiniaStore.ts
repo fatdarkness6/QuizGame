@@ -69,6 +69,7 @@ const useQuestionsPinia = defineStore('store', {
     },
 
     setDatasInLocalStorage() {
+
       const userStorage = JSON.parse(localStorage.getItem('userData') || '[]')
       const questionsStorage = parseQuestions()
       this.userDetails = {

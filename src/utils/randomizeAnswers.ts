@@ -6,10 +6,12 @@ export function randomizeAnswers(answers: ResponseFromApi) {
   let correctAnswers
 
   answers.data?.results?.map((e: QuestionData) => {
+    console.log(e)
     options = e.incorrect_answers
     correctAnswers = e.correct_answer
-    
-    options.push(correctAnswers)
-    options.sort(() => Math.random() - 0.5)
+
+    const copyData = [...options, correctAnswers]
+    const data = copyData.sort(() => Math.random() - 0.5)
+    e['options'] = data
   })
 }

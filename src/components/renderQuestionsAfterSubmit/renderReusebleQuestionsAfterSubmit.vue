@@ -11,7 +11,7 @@ const props = defineProps<Props>()
   </div>
   <div class="answer">
     <renderIncorrectAnswer
-      v-for="(items, index) in props.data.incorrect_answers"
+      v-for="(items, index) in props.data.options"
       :key="index"
       :data="items"
       :correctAnswer="props.data.correct_answer"

@@ -6,11 +6,11 @@ import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore'
 import { useRouter } from 'vue-router'
 import renderAnswers from './renderAnswers/renderAnswers.vue'
 import { parseQuestions } from '@/utils/parseDatasFromLocalStorage'
-import type { Props } from '@/types/sameTypes/sameTypes'
+import type { Props } from '@/types/commonTypes/sameTypes'
 import type {
   Emit,
   CheckButtons,
-} from '@/types/showQuestionsIfTheyAreExistType/renderQuestionsType/renderQuestionsType'
+} from '@/types/renderQuestionsType/renderQuestionsType'
 
 //------------------props------------------//
 
@@ -38,9 +38,11 @@ const router = useRouter()
 //------------------functions------------------//
 
 function numberOfIndex() {
-  return questionsPinia.getAllQuestionsFromLocalST.fetchDatas.findIndex((items) => {
-    return items.question === props.data.question
-  })
+  return questionsPinia.getAllQuestionsFromLocalST.fetchDatas.findIndex(
+    items => {
+      return items.question === props.data.question
+    },
+  )
 }
 function plusCountBtn() {
   checkButtons.value.countForBtn += 1
@@ -52,7 +54,7 @@ function minusCountBtn() {
     return
   } else {
     --checkButtons.value.countForBtn
-    data.numberOfIndex = numberOfIndex() - 1
+    data.saveItemsIndex = numberOfIndex() - 1
     localStorage.setItem('questions', JSON.stringify(data))
   }
 }
@@ -112,9 +114,9 @@ function setSelectedAnswer(props: string) {
 }
 
 function getSavedAnswer(index: number) {
-  console.log(questionsPinia.getAllQuestionsFromLocalST , index);
-  const savedAnswer = questionsPinia.getAllQuestionsFromLocalST.savedAnswers
-    && questionsPinia.getAllQuestionsFromLocalST?.savedAnswers[index] 
+  const savedAnswer =
+    questionsPinia.getAllQuestionsFromLocalST.savedAnswers &&
+    questionsPinia.getAllQuestionsFromLocalST?.savedAnswers[index]
 
   return savedAnswer ? savedAnswer.selectedAnswer : null
 }
@@ -145,7 +147,7 @@ watch(
 
 onMounted(() => {
   checkButtons.value.countForBtn =
-    questionsPinia.getAllQuestionsFromLocalST.numberOfIndex + 1
+    questionsPinia.getAllQuestionsFromLocalST.saveItemsIndex + 1
   checkButtonsFn()
   setSelectedAnswer('')
   questionsPinia.setSaveAnswerFromLocalStorage()

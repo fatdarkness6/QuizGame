@@ -2,7 +2,7 @@
 import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore'
 import { onMounted, ref } from 'vue'
 import renderQuestions from '@/components/renderForShowQuestions/renderQuestions.vue';
-import type { QuestionsData } from '@/types/showQuestionsIfTheyAreExistType/showQuestionsIfTheyAreExistType'
+import type { QuestionsData } from '@/types/showQuestionsIfTheyAreExistType';
 
 //----------------variables---------------------//
 

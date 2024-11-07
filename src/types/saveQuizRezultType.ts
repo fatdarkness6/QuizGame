@@ -1,7 +1,7 @@
-import type { QuestionData } from "./sameTypes/sameTypes";
+import type { QuestionData } from './commonTypes/sameTypes'
 
 export interface saveQuizRezult {
-    correctAnswers? : number,
-    inCorrectAnswers ?: number,
-    savedAnswers ?: QuestionData[]
+  correctAnswers?: number
+  inCorrectAnswers?: number
+  savedAnswers?: QuestionData[]
 }

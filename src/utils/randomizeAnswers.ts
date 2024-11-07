@@ -1,9 +1,15 @@
-import type { QuestionData } from "@/types/createQuestionsPiniaStoreType"
-import type { ResponseFromApi } from "@/types/sameTypes/sameTypes"
+import type { QuestionData } from '@/types/commonTypes/sameTypes'
+import type { ResponseFromApi } from '@/types/commonTypes/sameTypes'
 
-export function randomizeAnswers(answers : ResponseFromApi) {
-  answers.data?.results?.map((e : QuestionData) => {
-    e.incorrect_answers.push(e.correct_answer)
-    e.incorrect_answers.sort(() => Math.random() - 0.5)
+export function randomizeAnswers(answers: ResponseFromApi) {
+  let options
+  let correctAnswers
+
+  answers.data?.results?.map((e: QuestionData) => {
+    options = e.incorrect_answers
+    correctAnswers = e.correct_answer
+    
+    options.push(correctAnswers)
+    options.sort(() => Math.random() - 0.5)
   })
 }

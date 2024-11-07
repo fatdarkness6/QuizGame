@@ -2,7 +2,9 @@
 import { ref } from 'vue'
 import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore'
 import { useRouter } from 'vue-router'
-import { errorNotif, warningNotif } from '@/utils/notifications/notifications'
+import { useNotify } from '@/composables/notifications/notifications'
+
+
 import type { RefTypes } from '@/types/questionsPageComponentType'
 
 //--------------------pinia-----------------//
@@ -12,7 +14,6 @@ const useQPinia = useQuestionsPinia()
 //--------------------variables---------------//
 const handleStaticValue = ref<RefTypes>({
   numberOfQuestions: 0,
-  setLimitForClickStartQuiz: 0,
   setName: '',
   setLastName: '',
 })
@@ -20,12 +21,11 @@ const loading = ref<boolean>(false)
 
 const router = useRouter()
 
+const { errorNotif , warningNotif } = useNotify()
+
 //--------------------functions---------------//
 
 function startQuiz() {
-  if (handleStaticValue.value.setLimitForClickStartQuiz >= 1) {
-    return
-  } else {
     loading.value = true
     useQPinia
       .setQuestionsData(handleStaticValue.value.numberOfQuestions)
@@ -39,12 +39,8 @@ function startQuiz() {
       .finally(() => {
         loading.value = false
       })
-  }
 }
 
-function setLimitForClickStartQuiz() {
-  handleStaticValue.value.setLimitForClickStartQuiz += 1
-}
 
 function setNameAndLastNameToPinia() {
   const data = {
@@ -66,7 +62,6 @@ function submitForStartQuiz() {
     return
   } else {
     startQuiz()
-    setLimitForClickStartQuiz()
     setNameAndLastNameToPinia()
   }
 }
@@ -106,7 +101,7 @@ function goToUserInfo() {
           <h6>Help:from 1 to 50</h6>
         </div>
         <div class="part3">
-          <button>Go!</button>
+          <button :disabled="loading">Go!</button>
         </div>
       </div>
       <div class="navigateToParticipatesQuiz">

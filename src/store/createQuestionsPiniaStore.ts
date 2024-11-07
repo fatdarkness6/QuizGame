@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 import type { NameAndLastName } from '@/types/createQuestionsPiniaStoreType'
-import type { QuestionData } from '@/types/sameTypes/sameTypes'
+import type { QuestionData } from '@/types/commonTypes/sameTypes'
 import _ from 'lodash'
 import { randomizeAnswers } from '@/utils/randomizeAnswers'
 import { sortUsersByScore } from '@/utils/sortQuizesByScors'
@@ -22,7 +22,7 @@ const useQuestionsPinia = defineStore('store', {
       lastName: '',
       score: 0,
       fetchDatas: [] as QuestionData[],
-      numberOfIndex: 0,
+      saveItemsIndex: 0,
       correctAnswers: 0,
       inCorrectAnswers: 0,
       savedAnswers: [],
@@ -43,15 +43,17 @@ const useQuestionsPinia = defineStore('store', {
       this.saveAnswers = []
     },
 
-    saveAnswersFn(props: QuestionData , index : number) {
+    saveAnswersFn(props: QuestionData, index: number) {
       const questions = parseQuestions()
-      const findIndex = this.saveAnswers.findIndex(item => item.question === props.question)
+      const findIndex = this.saveAnswers.findIndex(
+        item => item.question === props.question,
+      )
       if (findIndex !== -1) {
         this.saveAnswers.splice(findIndex, 1, props)
       } else {
         this.saveAnswers.push(props)
       }
-      questions.numberOfIndex = index
+      questions.saveItemsIndex = index
       questions.savedAnswers = this.saveAnswers
       localStorage.setItem('questions', JSON.stringify(questions))
     },
@@ -65,36 +67,44 @@ const useQuestionsPinia = defineStore('store', {
     setNameAndLastName(data: NameAndLastName) {
       this.userDetails = data
     },
+
     setDatasInLocalStorage() {
       const userStorage = JSON.parse(localStorage.getItem('userData') || '[]')
       const questionsStorage = parseQuestions()
       this.userDetails = {
-        name : questionsStorage.name,
-        lastName : questionsStorage.lastName,
+        name: questionsStorage.name,
+        lastName: questionsStorage.lastName,
         answers: questionsStorage.savedAnswers,
         crAnswers: questionsStorage.correctAnswers,
         inCrAnswers: questionsStorage.inCorrectAnswers,
-        id : questionsStorage.id
+        id: questionsStorage.id,
       }
-      const preventDuplicate = userStorage.find((item :QuestionData) => item.id === this.userDetails.id)
-      const updatedStorage = _.isEmpty(userStorage) ? [this.userDetails] : preventDuplicate ? userStorage : [...userStorage, this.userDetails]
+      const preventDuplicate = userStorage.find(
+        (item: QuestionData) => item.id === this.userDetails.id,
+      )
+      const updatedStorage = _.isEmpty(userStorage)
+        ? [this.userDetails]
+        : preventDuplicate
+          ? userStorage
+          : [...userStorage, this.userDetails]
 
       localStorage.setItem('userData', JSON.stringify(updatedStorage))
     },
     setAllQuestionsToLocalStorage() {
       const data = {
         ...this.userDetails,
-        fetchDatas : this.questionsData,
-        id : generateId(),
-        numberOfIndex : 0
+        fetchDatas: this.questionsData,
+        id: generateId(),
+        saveItemsIndex: 0,
       }
       localStorage.setItem('questions', JSON.stringify(data))
     },
+
     getAllQuestionsFromLocalStorage() {
       const data = localStorage.getItem('questions')
       if (data) {
         this.allQuestionsDataFromLocalStorage = JSON.parse(data)
-      } 
+      }
     },
     getUserDataFromLocalStorage() {
       const data = localStorage.getItem('userData')
@@ -107,15 +117,17 @@ const useQuestionsPinia = defineStore('store', {
     calculateResults() {
       const questions = parseQuestions()
       const numberOfQuiz = questions.savedAnswers?.length
-      const correctQuizAnswers = questions.savedAnswers?.filter((e: QuestionData) => {
-        return e.correct_answer == e.selectedAnswer
-      })
+      const correctQuizAnswers = questions.savedAnswers?.filter(
+        (e: QuestionData) => {
+          return e.correct_answer == e.selectedAnswer
+        },
+      )
       questions.correctAnswers = correctQuizAnswers?.length
       questions.inCorrectAnswers = numberOfQuiz - correctQuizAnswers?.length
       localStorage.setItem('questions', JSON.stringify(questions))
     },
   },
-  
+
   getters: {
     UserDataFromLocalStorage: state => state.userDataFromLocalStorage,
     getAllQuestionsFromLocalST: state => state.allQuestionsDataFromLocalStorage,

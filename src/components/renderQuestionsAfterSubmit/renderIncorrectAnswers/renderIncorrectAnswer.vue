@@ -1,35 +1,38 @@
 <script setup lang="ts">
-import { ref , onMounted } from 'vue'
-import type { RenderAnswerData } from '@/types/sameTypes/sameTypes';
+import { ref, onMounted } from 'vue'
+import type { RenderAnswerData } from '@/types/commonTypes/sameTypes'
 
+const props = defineProps<RenderAnswerData>()
 
-    const props = defineProps<RenderAnswerData>()
+//-------------------variables---------------------//
 
-    //-------------------variables---------------------//
+const isEqualSelectedAnswer = ref<boolean>(false)
+const isCorrectAnswer = ref<boolean>(false)
 
-    const isEqualSelectedAnswer = ref<boolean>(false)
-    const isCorrectAnswer = ref<boolean>(false)
+//-------------------functions--------------------//
 
-    //-------------------functions--------------------//
+function checkSelectedAnswer() {
+  if (props.data === props.selectedAnswer) {
+    isEqualSelectedAnswer.value = true
+  }
+  if (props.data === props.correctAnswer) {
+    isCorrectAnswer.value = true
+  }
+}
 
-    function checkSelectedAnswer() {
-        if (props.data === props.selectedAnswer) {
-                isEqualSelectedAnswer.value = true
-        }
-        if(props.data === props.correctAnswer) {
-            isCorrectAnswer.value = true
-        }
-    }
+//--------------------mounted-------------------//
 
-    //--------------------mounted-------------------//
-
-    onMounted(() => {
-        checkSelectedAnswer()
-    })
+onMounted(() => {
+  checkSelectedAnswer()
+})
 </script>
 
 <template>
-   <h2 v-if="isCorrectAnswer"  v-html="props.data" class="correctAnswerTxt"></h2>
-   <h2 v-else-if="isEqualSelectedAnswer" class="incorrectAnswerTxt" v-html="props.data"></h2>
-   <h2 v-else v-html="props.data" class="incorrectAnswersDEFULT"></h2>
+  <h2 v-if="isCorrectAnswer" v-html="props.data" class="correctAnswerTxt"></h2>
+  <h2
+    v-else-if="isEqualSelectedAnswer"
+    class="incorrectAnswerTxt"
+    v-html="props.data"
+  ></h2>
+  <h2 v-else v-html="props.data" class="incorrectAnswersDEFULT"></h2>
 </template>

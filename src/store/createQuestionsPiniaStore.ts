@@ -3,7 +3,7 @@ import axios from 'axios'
 import type { NameAndLastName } from '@/types/createQuestionsPiniaStoreType'
 import type { QuestionData } from '@/types/commonTypes/sameTypes'
 import _ from 'lodash'
-import { randomizeAnswers } from '@/utils/randomizeAnswers'
+import { randomizeAnswers , addIdToItems } from '@/utils/importantThingsBeforeSetDataToLocalST'
 import { sortUsersByScore } from '@/utils/sortQuizesByScors'
 import type { User } from '@/types/sortUsers'
 import { generateId } from '@/utils/generateId'
@@ -36,6 +36,7 @@ const useQuestionsPinia = defineStore('store', {
         .get(`https://opentdb.com/api.php?amount=${data}`)
         .then(res => {
           randomizeAnswers(res)
+          addIdToItems(res)
           this.questionsData = res?.data?.results
         })
     },

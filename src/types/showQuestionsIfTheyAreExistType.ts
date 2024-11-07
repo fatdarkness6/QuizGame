@@ -1,4 +1,6 @@
+import type { QuestionData } from "./commonTypes/sameTypes";
+
 export interface QuestionsData {
-  selectedQuestion: object,
-    numberOfQuestions: number,
-  }
+  selectedQuestion: QuestionData,
+  numberOfQuestions: number
+}

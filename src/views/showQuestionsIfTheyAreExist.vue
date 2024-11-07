@@ -1,13 +1,20 @@
 <script setup lang="ts">
 import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore'
-import { onMounted, ref } from 'vue'
-import renderQuestions from '@/components/renderForShowQuestions/renderQuestions.vue';
-import type { QuestionsData } from '@/types/showQuestionsIfTheyAreExistType';
+import { onBeforeMount, ref } from 'vue'
+import renderQuestions from '@/components/renderForShowQuestions/renderQuestions.vue'
+import type { QuestionsData } from '@/types/showQuestionsIfTheyAreExistType'
 
 //----------------variables---------------------//
 
 const questionsData = ref<QuestionsData>({
-  selectedQuestion: {},
+  selectedQuestion: {
+    type: '',
+    difficulty: '',
+    category: '',
+    question: '',
+    correct_answer: '',
+    incorrect_answers: []
+  },
   numberOfQuestions: 0,
 })
 
@@ -19,26 +26,21 @@ const questionsPinia = useQuestionsPinia()
 
 function showNextData(index: number) {
   questionsPinia.getAllQuestionsFromLocalStorage()
-    // questionsData.value.selectedQuestion.splice(
-    //   0,
-    //   1,
-    //   questionsPinia.getAllQuestionsFromLocalST.fetchDatas[index] as never,
-    // )
-    questionsData.value.selectedQuestion = questionsPinia.getAllQuestionsFromLocalST.fetchDatas[index]
+  questionsData.value.selectedQuestion =
+    questionsPinia.getAllQuestionsFromLocalST.fetchDatas[index] 
 }
 
 function checkIndexFromLocalStorageIsExist() {
   const data = questionsPinia.getAllQuestionsFromLocalST.saveItemsIndex
   if (data) {
     return data
-  }else {
+  } else {
     return 0
   }
 }
 
-//--------------------mounted------------------//
-
-onMounted(() => {
+///--------------------beforeMounted------------------//
+onBeforeMount(() => {
   questionsPinia.getAllQuestionsFromLocalStorage()
   showNextData(checkIndexFromLocalStorageIsExist())
 })
@@ -52,7 +54,6 @@ onMounted(() => {
       </div>
       <div class="part2">
         <renderQuestions
-          
           :data="questionsData.selectedQuestion"
           @indexOf="showNextData"
         />

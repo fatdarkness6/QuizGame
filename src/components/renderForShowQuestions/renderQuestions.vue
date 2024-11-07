@@ -40,7 +40,7 @@ const router = useRouter()
 function numberOfIndex() {
   return questionsPinia.getAllQuestionsFromLocalST.fetchDatas.findIndex(
     items => {
-      return items.question === props.data.question
+      return items.id === props.data.id
     },
   )
 }

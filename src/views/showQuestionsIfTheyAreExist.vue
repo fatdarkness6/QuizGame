@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore'
+import { useQuestionsPinia } from '@/store/questionsStore'
 import { onBeforeMount, ref } from 'vue'
-import renderQuestions from '@/components/renderQuestions.vue';
+import renderQuestions from '@/components/renderQuestions.vue'
 import type { QuestionsData } from '@/types/showQuestionsIfTheyAreExistType'
 
 //----------------variables---------------------//
@@ -13,7 +13,7 @@ const questionsData = ref<QuestionsData>({
     category: '',
     question: '',
     correct_answer: '',
-    incorrect_answers: []
+    incorrect_answers: [],
   },
   numberOfQuestions: 0,
 })
@@ -27,7 +27,7 @@ const questionsPinia = useQuestionsPinia()
 function showNextData(index: number) {
   questionsPinia.getAllQuestionsFromLocalStorage()
   questionsData.value.selectedQuestion =
-    questionsPinia.getAllQuestionsFromLocalST.fetchDatas[index] 
+    questionsPinia.getAllQuestionsFromLocalST.fetchDatas[index]
 }
 
 function checkIndexFromLocalStorageIsExist() {

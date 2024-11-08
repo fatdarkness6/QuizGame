@@ -2,7 +2,7 @@
 <script setup lang="ts">
 import { watch, onMounted } from 'vue'
 import { ref } from 'vue'
-import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore'
+import { useQuestionsPinia } from '@/store/questionsStore'
 import { useRouter } from 'vue-router'
 import renderAnswers from './renderAnswers.vue'
 import { parseQuestions } from '@/utils/parseDatasFromLocalStorage'
@@ -10,7 +10,7 @@ import type { Props } from '@/types/commonTypes/sameTypes'
 import type {
   Emit,
   CheckButtons,
-} from '@/types/renderQuestionsType/renderQuestionsType'
+} from '@/types/renderQuestionsType'
 
 //------------------props------------------//
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore'
+import { useQuestionsPinia } from '@/store/questionsStore'
 import renderReusebleQuestionsAfterSubmit from '@/components/renderReusebleQuestionsAfterSubmit.vue'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -24,15 +24,15 @@ function resetQuery() {
 }
 
 function slelectLastArrayFromLocalStorage() {
-  if(_.isEmpty(questionsPinia.getAllQuestionsFromLocalST)) {
+  if (_.isEmpty(questionsPinia.getAllQuestionsFromLocalST)) {
     router.replace(`/`)
-  }else {
-    savedAnswer.value = questionsPinia.getAllQuestionsFromLocalST;
+  } else {
+    savedAnswer.value = questionsPinia.getAllQuestionsFromLocalST
   }
 }
 
 function setDataToLocalStorage() {
-  if(!_.isEmpty(questionsPinia.getAllQuestionsFromLocalST)) {
+  if (!_.isEmpty(questionsPinia.getAllQuestionsFromLocalST)) {
     questionsPinia.setDatasInLocalStorage()
   }
 }

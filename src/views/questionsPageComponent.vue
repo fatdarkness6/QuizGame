@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore'
+import { useQuestionsPinia } from '@/store/questionsStore'
 import { useRouter } from 'vue-router'
 import { useNotify } from '@/composables/notifications/notifications'
-
 
 import type { RefTypes } from '@/types/questionsPageComponentType'
 
@@ -21,26 +20,25 @@ const loading = ref<boolean>(false)
 
 const router = useRouter()
 
-const { errorNotif , warningNotif } = useNotify()
+const { errorNotif, warningNotif } = useNotify()
 
 //--------------------functions---------------//
 
 function startQuiz() {
-    loading.value = true
-    useQPinia
-      .setQuestionsData(handleStaticValue.value.numberOfQuestions)
-      .then(() => {
-        useQPinia.setAllQuestionsToLocalStorage()
-        router.replace(`/questions`)
-      })
-      .catch((err: string) => {
-        errorNotif(`ErrorForStartQuiz: ${err}`)
-      })
-      .finally(() => {
-        loading.value = false
-      })
+  loading.value = true
+  useQPinia
+    .setQuestionsData(handleStaticValue.value.numberOfQuestions)
+    .then(() => {
+      useQPinia.setAllQuestionsToLocalStorage()
+      router.replace(`/questions`)
+    })
+    .catch((err: string) => {
+      errorNotif(`ErrorForStartQuiz: ${err}`)
+    })
+    .finally(() => {
+      loading.value = false
+    })
 }
-
 
 function setNameAndLastNameToPinia() {
   const data = {
@@ -69,7 +67,6 @@ function submitForStartQuiz() {
 function goToUserInfo() {
   router.replace(`/userInfo`)
 }
-
 </script>
 
 <template>
@@ -105,7 +102,9 @@ function goToUserInfo() {
         </div>
       </div>
       <div class="navigateToParticipatesQuiz">
-        <button @click="goToUserInfo">click here to see how many Quizes you Participated</button>
+        <button @click="goToUserInfo">
+          click here to see how many Quizes you Participated
+        </button>
       </div>
     </form>
   </div>

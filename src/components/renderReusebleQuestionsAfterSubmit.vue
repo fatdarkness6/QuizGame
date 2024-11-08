@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import renderIncorrectAnswer from './renderIncorrectAnswers/renderIncorrectAnswer.vue'
+import renderIncorrectAnswer from './renderIncorrectAnswer.vue';
 import type { Props } from '@/types/commonTypes/sameTypes'
 
 const props = defineProps<Props>()

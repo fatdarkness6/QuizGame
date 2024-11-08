@@ -4,7 +4,7 @@ import { watch, onMounted } from 'vue'
 import { ref } from 'vue'
 import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore'
 import { useRouter } from 'vue-router'
-import renderAnswers from './renderAnswers/renderAnswers.vue'
+import renderAnswers from './renderAnswers.vue'
 import { parseQuestions } from '@/utils/parseDatasFromLocalStorage'
 import type { Props } from '@/types/commonTypes/sameTypes'
 import type {

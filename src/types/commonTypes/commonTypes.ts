@@ -1,4 +1,4 @@
-export interface QuestionData {
+export interface reusebleQuestionData {
   type: string
   difficulty: string
   category: string
@@ -11,7 +11,7 @@ export interface QuestionData {
 }
 
 export interface Props {
-  data: QuestionData
+  data: reusebleQuestionData
   index?: number
 }
 
@@ -24,6 +24,6 @@ export interface RenderAnswerData {
 
 export interface ResponseFromApi {
   data: {
-    results: QuestionData[]
+    results: reusebleQuestionData[]
   }
 }

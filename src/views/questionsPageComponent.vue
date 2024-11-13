@@ -3,26 +3,22 @@ import { ref } from 'vue'
 import { useQuestionsPinia } from '@/store/questionsStore'
 import { useRouter } from 'vue-router'
 import { useNotify } from '@/composables/notifications/notifications'
-
-import type { RefTypes } from '@/types/questionsPageComponentType'
+import type { fromValue } from '@/types/questionsPageComponentType'
 
 const useQPinia = useQuestionsPinia()
-
-const handleStaticValue = ref<RefTypes>({
+const formValue = ref<fromValue>({
   numberOfQuestions: 0,
   setName: '',
   setLastName: '',
 })
 const loading = ref<boolean>(false)
-
 const router = useRouter()
-
 const { errorNotif, warningNotif } = useNotify()
 
 function startQuiz() {
   loading.value = true
   useQPinia
-    .setQuestionsData(handleStaticValue.value.numberOfQuestions)
+    .setQuestionsData(formValue.value.numberOfQuestions)
     .then(() => {
       useQPinia.setAllQuestionsToLocalStorage()
       router.replace(`/questions`)
@@ -37,8 +33,8 @@ function startQuiz() {
 
 function setNameAndLastNameToPinia() {
   const data = {
-    name: handleStaticValue.value.setName,
-    lastName: handleStaticValue.value.setLastName,
+    name: formValue.value.setName,
+    lastName: formValue.value.setLastName,
   }
 
   useQPinia.setNameAndLastName(data)
@@ -46,10 +42,10 @@ function setNameAndLastNameToPinia() {
 
 function submitForStartQuiz() {
   if (
-    handleStaticValue.value.numberOfQuestions <= 0 ||
-    handleStaticValue.value.numberOfQuestions > 50 ||
-    handleStaticValue.value.setName == '' ||
-    handleStaticValue.value.setLastName == ''
+    formValue.value.numberOfQuestions <= 0 ||
+    formValue.value.numberOfQuestions > 50 ||
+    formValue.value.setName == '' ||
+    formValue.value.setLastName == ''
   ) {
     warningNotif('Please enter valid information')
     return
@@ -78,15 +74,15 @@ function goToUserInfo() {
         </div>
         <div class="part2 flx-column-center">
           <input
-            v-model="handleStaticValue.setName"
+            v-model="formValue.setName"
             placeholder="Enter your Name"
           />
           <input
-            v-model="handleStaticValue.setLastName"
+            v-model="formValue.setLastName"
             placeholder="Enter your Lastname"
           />
           <input
-            v-model="handleStaticValue.numberOfQuestions"
+            v-model="formValue.numberOfQuestions"
             type="number"
             placeholder="Enter number of questions"
           />

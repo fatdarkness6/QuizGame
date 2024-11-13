@@ -9,7 +9,7 @@ export interface UserInfoPropsType {
             question: string;
             correct_answer: string;
             incorrect_answers: string[];
-            selectedAnswer?: string; // Optional
+            selectedAnswer?: string; 
         }> | undefined;
         rightAnswer: number,
         wrongAnswers: number,

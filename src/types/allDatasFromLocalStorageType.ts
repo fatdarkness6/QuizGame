@@ -1,12 +1,12 @@
-import type { QuestionData } from './commonTypes/sameTypes'
+import type { reusebleQuestionData } from './commonTypes/commonTypes'
 export interface AllDatasFromLocalStorageType {
   id: string
   name: string
   lastName: string
   score: number
-  fetchDatas: QuestionData[]
+  fetchDatas: reusebleQuestionData[]
   saveItemsIndex: number
   correctAnswers?: number
   inCorrectAnswers?: number
-  savedAnswers?: QuestionData[]
+  savedAnswers?: reusebleQuestionData[]
 }

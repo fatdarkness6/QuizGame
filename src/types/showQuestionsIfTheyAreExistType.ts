@@ -1,6 +1,6 @@
-import type { QuestionData } from "./commonTypes/sameTypes";
+import type { reusebleQuestionData } from './commonTypes/commonTypes'
 
 export interface QuestionsData {
-  selectedQuestion: QuestionData,
+  selectedQuestion: reusebleQuestionData
   numberOfQuestions: number
 }

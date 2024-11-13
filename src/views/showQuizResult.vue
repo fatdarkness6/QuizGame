@@ -7,9 +7,7 @@ import type { saveQuizRezult } from '@/types/saveQuizRezultType'
 import _ from 'lodash'
 
 const questionsPinia = useQuestionsPinia()
-
 const router = useRouter()
-
 const savedAnswer = ref<saveQuizRezult>({})
 
 function resetQuery() {

@@ -1,9 +1,9 @@
-import type { QuestionData } from './commonTypes/sameTypes'
+import type { reusebleQuestionData } from './commonTypes/commonTypes'
 
 export interface User {
   name: string
   lastName: string
-  answers: QuestionData[] // Ensure this matches QuestionData[]
+  answers: reusebleQuestionData[] 
   rightAnswer: number
   wrongAnswers: number
   id?: string

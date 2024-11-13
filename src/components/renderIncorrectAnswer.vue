@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import type { RenderAnswerData } from '@/types/commonTypes/sameTypes'
+import type { RenderAnswerData } from '@/types/commonTypes/commonTypes'
 
 const props = defineProps<RenderAnswerData>()
 

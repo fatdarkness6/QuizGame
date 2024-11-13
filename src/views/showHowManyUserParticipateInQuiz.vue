@@ -5,7 +5,6 @@ import renderUsersInfo from '@/components/renderUsersInfo.vue'
 import { useRouter } from 'vue-router'
 
 const questionsPinia = useQuestionsPinia()
-
 const router = useRouter()
 
 function goToHomePgae() {

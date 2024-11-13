@@ -15,7 +15,6 @@ const questionsData = ref<QuestionsData>({
   },
   numberOfQuestions: 0,
 })
-
 const questionsPinia = useQuestionsPinia()
 
 function showNextData(index: number) {

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 import type { NameAndLastName } from '@/types/createQuestionsPiniaStoreType'
-import type { QuestionData } from '@/types/commonTypes/sameTypes'
+import type { reusebleQuestionData } from '@/types/commonTypes/commonTypes'
 import _ from 'lodash'
 import {
   randomizeAnswers,
@@ -15,8 +15,8 @@ import { parseQuestions } from '@/utils/parseDatasFromLocalStorage'
 
 const useQuestionsPinia = defineStore('store', {
   state: () => ({
-    questionsData: [] as QuestionData[],
-    saveAnswers: [] as QuestionData[],
+    questionsData: [] as reusebleQuestionData[],
+    saveAnswers: [] as reusebleQuestionData[],
     userDetails: {} as NameAndLastName,
     userDataFromLocalStorage: [] as User[],
     allQuestionsDataFromLocalStorage: {
@@ -24,7 +24,7 @@ const useQuestionsPinia = defineStore('store', {
       name: '',
       lastName: '',
       score: 0,
-      fetchDatas: [] as QuestionData[],
+      fetchDatas: [] as reusebleQuestionData[],
       saveItemsIndex: 0,
       correctAnswers: 0,
       inCorrectAnswers: 0,
@@ -47,7 +47,7 @@ const useQuestionsPinia = defineStore('store', {
       this.saveAnswers = []
     },
 
-    saveAnswersFn(props: QuestionData, index: number) {
+    saveAnswersFn(props: reusebleQuestionData, index: number) {
       const questions = parseQuestions()
       const findIndex = this.saveAnswers.findIndex(
         item => item.question === props.question,
@@ -92,7 +92,7 @@ const useQuestionsPinia = defineStore('store', {
         id: questionsStorage.id,
       }
       const preventDuplicate = userStorage.find(
-        (item: QuestionData) => item.id === this.userDetails.id,
+        (item: reusebleQuestionData) => item.id === this.userDetails.id,
       )
       const updatedStorage = _.isEmpty(userStorage)
         ? [this.userDetails]
@@ -130,7 +130,7 @@ const useQuestionsPinia = defineStore('store', {
       const questions = parseQuestions()
       const numberOfQuiz = questions.savedAnswers?.length
       const correctQuizAnswers = questions.savedAnswers?.filter(
-        (e: QuestionData) => {
+        (e: reusebleQuestionData) => {
           return e.correct_answer == e.selectedAnswer
         },
       )

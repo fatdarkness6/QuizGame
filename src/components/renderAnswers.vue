@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { RenderAnswerData } from '@/types/commonTypes/sameTypes'
+import type { RenderAnswerData } from '@/types/commonTypes/commonTypes'
 import type { AnswerEmit } from '@/types/renderAnswersType'
 
 const props = defineProps<RenderAnswerData>()

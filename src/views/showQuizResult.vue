@@ -61,6 +61,7 @@ onMounted(() => {
         v-for="(items, index) in savedAnswer.savedAnswers"
         :key="index"
         :data="items"
+        :index="index + 1 "
       />
     </div>
     <div class="GoToHomePage">

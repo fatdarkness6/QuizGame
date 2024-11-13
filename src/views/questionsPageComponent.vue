@@ -11,6 +11,7 @@ import type { RefTypes } from '@/types/questionsPageComponentType'
 const useQPinia = useQuestionsPinia()
 
 //--------------------variables---------------//
+
 const handleStaticValue = ref<RefTypes>({
   numberOfQuestions: 0,
   setName: '',
@@ -51,7 +52,7 @@ function setNameAndLastNameToPinia() {
 
 function submitForStartQuiz() {
   if (
-    handleStaticValue.value.numberOfQuestions == 0 ||
+    handleStaticValue.value.numberOfQuestions <= 0 ||
     handleStaticValue.value.numberOfQuestions > 50 ||
     handleStaticValue.value.setName == '' ||
     handleStaticValue.value.setLastName == ''

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type  { ShowCorrectAndIncorrectAnswersProps } from '@/types/showCorrectAndIncorrectAnswersProps';
+import type { ShowCorrectAndIncorrectAnswersProps } from '@/types/Props/Props';
 
 const props = defineProps<ShowCorrectAndIncorrectAnswersProps>()
 </script>

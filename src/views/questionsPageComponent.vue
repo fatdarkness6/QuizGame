@@ -59,6 +59,7 @@ function submitForStartQuiz() {
 function goToUserInfo() {
   router.replace(`/userInfo`)
 }
+
 </script>
 
 <template>

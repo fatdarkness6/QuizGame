@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/no-mutating-props -->
 <script setup lang="ts">
-import type { SubmitFormProps } from '@/types/submitFormPropsType'
+import type { SubmitFormProps } from '@/types/Props/Props';
 
 const props = defineProps<SubmitFormProps>()
 

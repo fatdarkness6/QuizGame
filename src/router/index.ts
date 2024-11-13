@@ -20,7 +20,7 @@ export const router = createRouter({
         component : ShowQuizResult
       },
       {
-        path : "/userInfo",
+        path : "/user-info",
         component : showHowManyUserParticipateInQuiz
       }
     ]

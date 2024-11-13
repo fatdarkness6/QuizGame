@@ -9,3 +9,7 @@ export interface SubmitFormProps {
     formValue : FromValue,
     loading : boolean
 }
+
+export interface showQuizComponentProps {
+    savedAnswer : saveQuizRezult,
+}

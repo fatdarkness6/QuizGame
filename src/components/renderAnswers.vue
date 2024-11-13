@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { RenderAnswerData } from '@/types/commonTypes/commonTypes'
-import type { AnswerEmit } from '@/types/renderAnswersType'
+import type { AnswerEmit } from '@/types/Emits/Emits';
 
 const props = defineProps<RenderAnswerData>()
 const emit = defineEmits<AnswerEmit>()

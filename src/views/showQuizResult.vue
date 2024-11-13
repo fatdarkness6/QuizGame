@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useQuestionsPinia } from '@/store/questionsStore'
-import RenderReusebleQuestionsAfterSubmit from '@/components/renderReusebleQuestionsAfterSubmit.vue'
-import ShowCorrectAndIncorrectAnswers from '@/components/showCorrectAndIncorrectAnswers.vue'
+import ShowQuizComponent from '@/components/showQuizComponent.vue'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import type { saveQuizRezult } from '@/types/saveQuizRezultType'
@@ -40,21 +39,6 @@ onMounted(() => {
 
 <template>
   <div class="wrapper">
-    <div class="flx-column-center gap-20">
-      <ShowCorrectAndIncorrectAnswers :savedAnswer="savedAnswer"/>
-    </div>
-    <div class="showQuestionsAfterSubmit">
-      <h1 v-if="!savedAnswer.savedAnswers">you didnt answer the questions</h1>
-      <RenderReusebleQuestionsAfterSubmit
-        v-else
-        v-for="(items, index) in savedAnswer.savedAnswers"
-        :key="index"
-        :data="items"
-        :index="index + 1"
-      />
-    </div>
-    <div class="GoToHomePage">
-      <button @click="resetQuery">Go to Home Pgae</button>
-    </div>
+   <ShowQuizComponent :savedAnswer="savedAnswer" @resetQuery="resetQuery" />
   </div>
 </template>

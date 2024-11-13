@@ -68,7 +68,7 @@ function goToUserInfo() {
       <h1>Loading...</h1>
     </div>
     <form @submit.prevent="submitForStartQuiz">
-      <SubmitForStartQuizComponent :formValue="formValue" :loading="loading" @submitForm="submitForStartQuiz" />
+      <SubmitForStartQuizComponent :formValue="formValue" :loading="loading" />
       <div class="navigateToParticipatesQuiz">
         <button @click="goToUserInfo">
           click here to see how many Quizes you Participated

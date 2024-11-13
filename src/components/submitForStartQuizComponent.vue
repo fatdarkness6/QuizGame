@@ -1,14 +1,8 @@
 <!-- eslint-disable vue/no-mutating-props -->
 <script setup lang="ts">
-import type { SubmitFormProps } from '@/types/Props/Props';
+import type { SubmitFormProps } from '@/types/Props/Props'
 
 const props = defineProps<SubmitFormProps>()
-
-const emit = defineEmits(['submitForm'])
-
-function submitForm() {
-  emit('submitForm')
-}
 </script>
 
 <template>
@@ -32,7 +26,7 @@ function submitForm() {
       <h6>Help:from 1 to 50</h6>
     </div>
     <div class="part3">
-      <button :disabled="props.loading" @click="submitForm">Go!</button>
+      <button :disabled="props.loading" >Go!</button>
     </div>
   </div>
 </template>

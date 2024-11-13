@@ -3,10 +3,11 @@ import { ref } from 'vue'
 import { useQuestionsPinia } from '@/store/questionsStore'
 import { useRouter } from 'vue-router'
 import { useNotify } from '@/composables/notifications/notifications'
-import type { fromValue } from '@/types/questionsPageComponentType'
+import type { FromValue } from '@/types/questionsPageComponentType'
+import SubmitForStartQuizComponent from '@/components/submitForStartQuizComponent.vue'
 
 const useQPinia = useQuestionsPinia()
-const formValue = ref<fromValue>({
+const formValue = ref<FromValue>({
   numberOfQuestions: 0,
   setName: '',
   setLastName: '',
@@ -66,32 +67,7 @@ function goToUserInfo() {
       <h1>Loading...</h1>
     </div>
     <form @submit.prevent="submitForStartQuiz">
-      <div class="questionsContainer flx-column-center">
-        <div class="part1 flx-column-center">
-          <h1>Questions</h1>
-          <h3>A Quiz Web Application</h3>
-          <h4>How many question do you want to answer?</h4>
-        </div>
-        <div class="part2 flx-column-center">
-          <input
-            v-model="formValue.setName"
-            placeholder="Enter your Name"
-          />
-          <input
-            v-model="formValue.setLastName"
-            placeholder="Enter your Lastname"
-          />
-          <input
-            v-model="formValue.numberOfQuestions"
-            type="number"
-            placeholder="Enter number of questions"
-          />
-          <h6>Help:from 1 to 50</h6>
-        </div>
-        <div class="part3">
-          <button :disabled="loading">Go!</button>
-        </div>
-      </div>
+      <SubmitForStartQuizComponent :formValue="formValue" :loading="loading" @submitForm="submitForStartQuiz" />
       <div class="navigateToParticipatesQuiz">
         <button @click="goToUserInfo">
           click here to see how many Quizes you Participated

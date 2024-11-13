@@ -3,7 +3,10 @@ import axios from 'axios'
 import type { NameAndLastName } from '@/types/createQuestionsPiniaStoreType'
 import type { QuestionData } from '@/types/commonTypes/sameTypes'
 import _ from 'lodash'
-import { randomizeAnswers , addIdToItems } from '@/utils/importantThingsBeforeSetDataToLocalST'
+import {
+  randomizeAnswers,
+  addIdToItems,
+} from '@/utils/importantThingsBeforeSetDataToLocalST'
 import { sortUsersByScore } from '@/utils/sortQuizesByScors'
 import type { User } from '@/types/sortUsers'
 import { generateId } from '@/utils/generateId'
@@ -50,9 +53,17 @@ const useQuestionsPinia = defineStore('store', {
         item => item.question === props.question,
       )
       if (findIndex !== -1) {
-        this.saveAnswers.splice(findIndex, 1, props)
+        if (!props.selectedAnswer) {
+          this.saveAnswers.splice(findIndex, 1)
+        } else {
+          this.saveAnswers.splice(findIndex, 1, props)
+        }
       } else {
-        this.saveAnswers.push(props)
+        if (!props.selectedAnswer) {
+          return
+        } else {
+          this.saveAnswers.push(props)
+        }
       }
       questions.saveItemsIndex = index
       questions.savedAnswers = this.saveAnswers
@@ -70,7 +81,6 @@ const useQuestionsPinia = defineStore('store', {
     },
 
     setDatasInLocalStorage() {
-
       const userStorage = JSON.parse(localStorage.getItem('userData') || '[]')
       const questionsStorage = parseQuestions()
       this.userDetails = {

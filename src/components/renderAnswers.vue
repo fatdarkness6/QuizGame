@@ -5,8 +5,6 @@ import type { AnswerEmit } from '@/types/renderAnswersType'
 const props = defineProps<RenderAnswerData>()
 const emit = defineEmits<AnswerEmit>()
 
-//---------------functions---------------//
-
 function selectedAnswerFn() {
   emit('selectedAnswer', props.data)
 }

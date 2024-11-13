@@ -7,24 +7,13 @@ import { useRouter } from 'vue-router'
 import renderAnswers from './renderAnswers.vue'
 import { parseQuestions } from '@/utils/parseDatasFromLocalStorage'
 import type { Props } from '@/types/commonTypes/sameTypes'
-import type {
-  Emit,
-  CheckButtons,
-} from '@/types/renderQuestionsType'
-
-//------------------props------------------//
+import type { Emit, CheckButtons } from '@/types/renderQuestionsType'
 
 const props = defineProps<Props>()
 
-//--------------------emits------------------//
-
 const emit = defineEmits<Emit>()
 
-//------------------pinia-----------------------//
-
 const questionsPinia = useQuestionsPinia()
-
-//------------------variables------------------//
 
 const selectedAnswer = ref<number | null | string>(null)
 const checkButtons = ref<CheckButtons>({
@@ -34,8 +23,6 @@ const checkButtons = ref<CheckButtons>({
 })
 
 const router = useRouter()
-
-//------------------functions------------------//
 
 function numberOfIndex() {
   return questionsPinia.getAllQuestionsFromLocalST.fetchDatas.findIndex(
@@ -127,7 +114,11 @@ function setQueryParams(props: string) {
 
 function finishQuizFn() {
   saveAnswer()
-  setQueryParams(`quizRezult`)
+  setQueryParams(`quiz-rezult`)
+}
+
+function setNumberOfQuestions() {
+  return numberOfIndex() + 1
 }
 
 //------------------watch---------------------//
@@ -156,6 +147,7 @@ onMounted(() => {
 
 <template>
   <div class="question">
+    <h1>{{ setNumberOfQuestions() }}_</h1>
     <h1 v-html="props.data.question"></h1>
   </div>
   <div class="answers">

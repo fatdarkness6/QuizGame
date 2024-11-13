@@ -4,8 +4,6 @@ import { onBeforeMount, ref } from 'vue'
 import renderQuestions from '@/components/renderQuestions.vue'
 import type { QuestionsData } from '@/types/showQuestionsIfTheyAreExistType'
 
-//----------------variables---------------------//
-
 const questionsData = ref<QuestionsData>({
   selectedQuestion: {
     type: '',
@@ -18,11 +16,7 @@ const questionsData = ref<QuestionsData>({
   numberOfQuestions: 0,
 })
 
-//---------------------pinia---------------------//
-
 const questionsPinia = useQuestionsPinia()
-
-//--------------------functions------------------//
 
 function showNextData(index: number) {
   questionsPinia.getAllQuestionsFromLocalStorage()

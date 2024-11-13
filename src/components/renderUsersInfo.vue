@@ -1,15 +1,11 @@
 <script lang="ts" setup>
 import { defineProps, ref } from 'vue'
 import type { UserInfoPropsType } from '@/types/userInfoPropsType'
-import renderReusebleQuestionsAfterSubmit from './renderReusebleQuestionsAfterSubmit.vue';
+import renderReusebleQuestionsAfterSubmit from './renderReusebleQuestionsAfterSubmit.vue'
 
 const props = defineProps<UserInfoPropsType>()
 
-//---------------------variables---------------------//
-
 const infoIsOpen = ref<boolean>(false)
-
-//-------------------functions---------------------//
 
 function showInfos() {
   infoIsOpen.value = !infoIsOpen.value

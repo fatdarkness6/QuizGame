@@ -6,17 +6,11 @@ import { useRouter } from 'vue-router'
 import type { saveQuizRezult } from '@/types/saveQuizRezultType'
 import _ from 'lodash'
 
-//---------------------pinia---------------------//
-
 const questionsPinia = useQuestionsPinia()
-
-//--------------------variables------------------//
 
 const router = useRouter()
 
 const savedAnswer = ref<saveQuizRezult>({})
-
-//--------------------function-------------------//
 
 function resetQuery() {
   router.replace(`/`)
@@ -36,7 +30,6 @@ function setDataToLocalStorage() {
     questionsPinia.setDatasInLocalStorage()
   }
 }
-//--------------------mouted---------------------//
 
 onMounted(() => {
   questionsPinia.calculateResults()
@@ -57,11 +50,13 @@ onMounted(() => {
       </div>
     </div>
     <div class="showQuestionsAfterSubmit">
+      <h1 v-if="!savedAnswer.savedAnswers">you didnt answer the questions</h1>
       <renderReusebleQuestionsAfterSubmit
+        v-else
         v-for="(items, index) in savedAnswer.savedAnswers"
         :key="index"
         :data="items"
-        :index="index + 1 "
+        :index="index + 1"
       />
     </div>
     <div class="GoToHomePage">

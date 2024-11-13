@@ -16,7 +16,7 @@ export const router = createRouter({
         component : showQuestionsIfTheyAreExist
       },
       {
-        path : '/quizRezult',
+        path : '/quiz-rezult',
         component : ShowQuizResult
       },
       {

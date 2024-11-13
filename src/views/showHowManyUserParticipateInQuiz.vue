@@ -4,21 +4,13 @@ import { useQuestionsPinia } from '@/store/questionsStore'
 import renderUsersInfo from '@/components/renderUsersInfo.vue'
 import { useRouter } from 'vue-router'
 
-//---------------------pinia---------------------//
-
 const questionsPinia = useQuestionsPinia()
 
-//---------------------variables-----------------//
-
 const router = useRouter()
-
-//---------------------functions-----------------//
 
 function goToHomePgae() {
   router.replace(`/`)
 }
-
-//---------------------mouted--------------------//
 
 onMounted(() => {
   questionsPinia.getUserDataFromLocalStorage()

@@ -6,11 +6,7 @@ import { useNotify } from '@/composables/notifications/notifications'
 
 import type { RefTypes } from '@/types/questionsPageComponentType'
 
-//--------------------pinia-----------------//
-
 const useQPinia = useQuestionsPinia()
-
-//--------------------variables---------------//
 
 const handleStaticValue = ref<RefTypes>({
   numberOfQuestions: 0,
@@ -22,8 +18,6 @@ const loading = ref<boolean>(false)
 const router = useRouter()
 
 const { errorNotif, warningNotif } = useNotify()
-
-//--------------------functions---------------//
 
 function startQuiz() {
   loading.value = true

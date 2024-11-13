@@ -4,12 +4,8 @@ import type { RenderAnswerData } from '@/types/commonTypes/sameTypes'
 
 const props = defineProps<RenderAnswerData>()
 
-//-------------------variables---------------------//
-
 const isEqualSelectedAnswer = ref<boolean>(false)
 const isCorrectAnswer = ref<boolean>(false)
-
-//-------------------functions--------------------//
 
 function checkSelectedAnswer() {
   if (props.data === props.selectedAnswer) {
@@ -19,8 +15,6 @@ function checkSelectedAnswer() {
     isCorrectAnswer.value = true
   }
 }
-
-//--------------------mounted-------------------//
 
 onMounted(() => {
   checkSelectedAnswer()

@@ -2,15 +2,12 @@ import type { User } from "@/types/sortUsers";
 
 export function sortUsersByScore(users :User[]) :User[]{
     return users.sort((a, b) => {
-      // Primary sorting: more `rightAnswer`
       if (a.rightAnswer !== b.rightAnswer) {
-        return b.rightAnswer - a.rightAnswer; // Descending order
+        return b.rightAnswer - a.rightAnswer; 
       }
-      // Secondary sorting: fewer `wrongAnswers`
       if (a.wrongAnswers !== b.wrongAnswers) {
-        return a.wrongAnswers - b.wrongAnswers; // Ascending order
+        return a.wrongAnswers - b.wrongAnswers; 
       }
-      // Tertiary sorting: more questions attempted
-      return b.answers.length - a.answers.length; // Descending order
+      return b.answers.length - a.answers.length;
     });
   }

@@ -14,8 +14,8 @@ const props = defineProps<Props>()
 
 const emit = defineEmits<Emit>()
 
+const windowWidth = ref<number>(window.innerWidth)
 const questionsPinia = useQuestionsPinia()
-
 const selectedAnswer = ref<number | null | string>(null)
 const checkButtons = ref<CheckButtons>({
   nextButtons: false,
@@ -122,6 +122,14 @@ function setNumberOfQuestions() {
   return numberOfIndex() + 1
 }
 
+function responsiveNumbers() {
+  if (windowWidth.value < 500) {
+    return setNumberOfQuestions();
+  } else {
+    return setNumberOfQuestions() + "_";
+  }
+}
+
 //------------------watch---------------------//
 
 watch(selectedAnswer, newVal => {
@@ -139,16 +147,19 @@ watch(
 
 onMounted(() => {
   checkButtons.value.countForBtn =
-    questionsPinia.getAllQuestionsFromLocalST.saveItemsIndex + 1
+  questionsPinia.getAllQuestionsFromLocalST.saveItemsIndex + 1
   checkButtonsFn()
   setSelectedAnswer('')
   questionsPinia.setSaveAnswerFromLocalStorage()
+  window.addEventListener('resize', () => {
+    windowWidth.value = window.innerWidth
+  })
 })
 </script>
 
 <template>
   <div class="question">
-    <h1>{{ setNumberOfQuestions() }}_</h1>
+    <h1>{{ responsiveNumbers() }}</h1>
     <h1 v-html="props.data.question"></h1>
   </div>
   <div class="answers">

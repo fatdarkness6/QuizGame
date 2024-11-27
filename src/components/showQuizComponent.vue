@@ -26,6 +26,6 @@ function resetQuery() {
       />
     </div>
     <div class="GoToHomePage">
-      <button @click="resetQuery">Go to Home Pgae</button>
+      <button @click="resetQuery">Go to Home page</button>
     </div>
 </template>

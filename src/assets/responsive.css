@@ -1,0 +1,48 @@
+@media (max-width: 1270px) {
+    .userInfo {
+        margin: 40px;
+    }
+    .usInfo.flx-left :is(.name h2 , .lastName h2) , .ans.flx-right :is(.rightAnswers h3 , .wrongAnswers h3) {
+        margin: 5px 0 5px 0;
+        font-size: 1.2rem;
+    }
+}
+@media (max-width: 600px) {
+    .showQuestions .question h1:nth-child(1) {
+        margin-top: 0;
+        font-size: 3rem;
+    }
+    .showQuestions .question h1:nth-child(2) {
+        font-size: 1.2rem;
+    }
+    .answers .answer button {
+        font-size: 1rem;
+        text-align: left;
+    }
+    .logicalButtons .changeQuestion {
+        flex-direction: column;
+        align-items: center;
+
+    }
+    .logicalButtons .changeQuestion button {
+        width: 100%;
+    }
+    .correctAnswers , .incorrectAnswers {
+        font-size: 1rem;
+    }
+}
+@media (max-width: 500px) {
+    .part2 .question {
+        flex-direction: column;
+    }
+    .correctAnswerTxt , .incorrectAnswersDEFULT {
+        font-size: 1rem;
+    }
+    .renderUserInfo .part1 {
+        flex-direction: column;
+        align-items: start;
+    }
+    .ans.flx-right {
+        align-items: start;
+    }
+}

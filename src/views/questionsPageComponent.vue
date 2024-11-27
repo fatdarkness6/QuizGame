@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useQuestionsPinia } from '@/store/questionsStore'
+import { useQuestionsPinia } from '../store/questionsStore'
 import { useRouter } from 'vue-router'
-import { useNotify } from '@/composables/notifications/notifications'
-import type { FromValue } from '@/types/questionsPageComponentType'
-import SubmitForStartQuizComponent from '@/components/submitForStartQuizComponent.vue'
+import { useNotify } from '../composables/notifications/notifications'
+import type { FromValue } from '../types/questionsPageComponentType'
+import SubmitForStartQuizComponent from '../components/submitForStartQuizComponent.vue'
 
 const useQPinia = useQuestionsPinia()
 const formValue = ref<FromValue>({

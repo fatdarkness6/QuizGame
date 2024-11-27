@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useQuestionsPinia } from '@/store/questionsStore'
-import ShowQuizComponent from '@/components/showQuizComponent.vue'
+import { useQuestionsPinia } from '../store/questionsStore'
+import ShowQuizComponent from '../components/showQuizComponent.vue'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import type { saveQuizRezult } from '@/types/saveQuizRezultType'
+import type { saveQuizRezult } from '../types/saveQuizRezultType'
 import _ from 'lodash'
 
 const questionsPinia = useQuestionsPinia()

@@ -6,12 +6,12 @@ import _ from 'lodash'
 import {
   randomizeAnswers,
   addIdToItems,
-} from '@/utils/importantThingsBeforeSetDataToLocalST'
-import { sortUsersByScore } from '@/utils/sortQuizesByScors'
-import type { User } from '@/types/sortUsers'
-import { generateId } from '@/utils/generateId'
-import type { AllDatasFromLocalStorageType } from '@/types/allDatasFromLocalStorageType'
-import { parseQuestions } from '@/utils/parseDatasFromLocalStorage'
+} from '../utils/importantThingsBeforeSetDataToLocalST'
+import { sortUsersByScore } from '../utils/sortQuizesByScors'
+import type { User } from '../types/sortUsers'
+import { generateId } from '../utils/generateId'
+import type { AllDatasFromLocalStorageType } from '../types/allDatasFromLocalStorageType'
+import { parseQuestions } from '../utils/parseDatasFromLocalStorage'
 
 const useQuestionsPinia = defineStore('store', {
   state: () => ({

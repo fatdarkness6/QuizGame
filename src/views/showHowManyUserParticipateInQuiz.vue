@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { onMounted } from 'vue'
-import { useQuestionsPinia } from '@/store/questionsStore'
-import renderUsersInfo from '@/components/renderUsersInfo.vue'
+import { useQuestionsPinia } from '../store/questionsStore'
+import renderUsersInfo from '../components/renderUsersInfo.vue'
 import { useRouter } from 'vue-router'
 
 const questionsPinia = useQuestionsPinia()

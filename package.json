@@ -17,6 +17,7 @@
     "axios": "^1.7.7",
     "lodash": "^4.17.21",
     "pinia": "^2.2.5",
+    "vite-plugin-pwa": "^0.21.0",
     "vue": "^3.5.12",
     "vue-router": "^4.4.5"
   },
@@ -33,7 +34,7 @@
     "eslint-plugin-vue": "^9.29.0",
     "npm-run-all2": "^7.0.1",
     "prettier": "^3.3.3",
-    "typescript": "~5.6.0",
+    "typescript": "^5.7.2",
     "vite": "^5.4.10",
     "vue-tsc": "^2.1.6"
   }

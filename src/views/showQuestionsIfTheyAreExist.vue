@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useQuestionsPinia } from '@/store/questionsStore'
+import { useQuestionsPinia } from '../store/questionsStore'
 import { onBeforeMount, ref } from 'vue'
-import renderQuestions from '@/components/renderQuestions.vue'
-import type { QuestionsData } from '@/types/showQuestionsIfTheyAreExistType'
+import renderQuestions from '../components/renderQuestions.vue'
+import type { QuestionsData } from '../types/showQuestionsIfTheyAreExistType'
 
 const questionsData = ref<QuestionsData>({
   selectedQuestion: {

@@ -2,13 +2,13 @@
 <script setup lang="ts">
 import { watch, onMounted } from 'vue'
 import { ref } from 'vue'
-import { useQuestionsPinia } from '@/store/questionsStore'
+import { useQuestionsPinia } from '../store/questionsStore'
 import { useRouter } from 'vue-router'
 import renderAnswers from './renderAnswers.vue'
-import { parseQuestions } from '@/utils/parseDatasFromLocalStorage'
-import type { Props } from '@/types/commonTypes/commonTypes'
-import type { Emit } from '@/types/Emits/Emits'
-import type { CheckButtons } from '@/types/renderQuestionsType'
+import { parseQuestions } from '../utils/parseDatasFromLocalStorage'
+import type { Props } from '../types/commonTypes/commonTypes'
+import type { Emit } from '../types/Emits/Emits'
+import type { CheckButtons } from '../types/renderQuestionsType'
 
 const props = defineProps<Props>()
 

@@ -13,10 +13,10 @@ const useQuestionsPinia = defineStore('store', {
       await axios
         .get(`https://opentdb.com/api.php?amount=${data}`)
         .then(res => {
-          this.questionsData = res.data.results
+          this.questionsData = res?.data?.results
         })
     },
-    saveAnswersFn(props) {
+    saveAnswersFn(props)  {
       let findIndex = this.saveAnswers.indexOf(props)
       if (findIndex !== -1) {
         this.saveAnswers.splice(findIndex, 1 , props)
@@ -34,11 +34,11 @@ const useQuestionsPinia = defineStore('store', {
     }
   },
   getters: {
-    getQuestionsData: (data) => data.questionsData,
-    getQuestionsDataLength: (data) => data.questionsData.length,
-    getCorrectAnswers: (data) => data.correctAnswers,
-    getIncorrectAnswers: (data) => data.inCorrectAnswers,
-    getsaveAnswers : (data) => data.saveAnswers
+    getQuestionsData: (state) => state.questionsData,
+    getQuestionsDataLength: (state) => state.questionsData.length,
+    getCorrectAnswers: (state) => state.correctAnswers,
+    getIncorrectAnswers: (state) => state.inCorrectAnswers,
+    getsaveAnswers : (state) => state.saveAnswers
   }
 })
 

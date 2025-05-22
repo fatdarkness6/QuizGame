@@ -22,6 +22,6 @@ onMounted(() => {
     </div>
   </div>
     <div class="showQuestionsAfterSubmit">
-      <renderQuestionsAfterSubmit v-for="(items , index) in questionsPinia.getQuestionsData" :key="index" :data="items" :index="index+1" />
+      <renderQuestionsAfterSubmit v-for="(items , index) in questionsPinia.getsaveAnswers" :key="index" :data="items" :index="index+1" />
     </div>
 </template>

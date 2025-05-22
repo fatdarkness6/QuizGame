@@ -4,12 +4,11 @@ import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore'
 import { useRouter } from 'vue-router'
 import { errorNotif, warningNotif } from '@/utils/notifications/notifications';
 
-//--------------------pinia---------------//
+//--------------------pinia-----------------//
 
 const useQPinia = useQuestionsPinia()
-
 //--------------------variables---------------//
-let handleStaticValue = ref({
+let handleStaticValue  = ref({
   numberOfQuestions: 0,
   setLimitForClickStartQuiz: 0,
 })

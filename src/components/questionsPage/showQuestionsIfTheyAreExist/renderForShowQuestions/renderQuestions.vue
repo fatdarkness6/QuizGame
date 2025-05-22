@@ -3,6 +3,7 @@ import { watch, computed, onMounted } from 'vue'
 import { ref } from 'vue'
 import { useQuestionsPinia } from '@/store/createQuestionsPiniaStore'
 import { useRouter } from 'vue-router'
+import renderAnswers from './renderAnswers/renderAnswers.vue'
 
 //------------------props------------------//
 
@@ -17,6 +18,7 @@ let emit = defineEmits(['indexOf'])
 const questionsPinia = useQuestionsPinia()
 
 //------------------variables------------------//
+
 let selectedAnswer = ref(null)
 let checkButtons = ref({
   nextButtons: false,
@@ -32,8 +34,9 @@ function numberOfIndex() {
   return questionsPinia.getQuestionsData.indexOf(props.data)
 }
 function plusCountBtn() {
-  ++checkButtons.value.countForBtn
+  checkButtons.value.countForBtn +=1
 }
+
 function minusCountBtn() {
   if (checkButtons.value.countForBtn === 1) {
     return
@@ -66,7 +69,7 @@ function nexQuestion() {
   saveAnswer()
   plusCountBtn()
   sendDataForshowNextQuestion()
-  selectedAnswer.value = null
+  selectedAnswer.value = getSavedAnswer(numberOfIndex() + 1)
 }
 function sendDataForshowPrevQuestion() {
   emit('indexOf', numberOfIndex() - 1)
@@ -76,10 +79,18 @@ function sendDataForshowPrevQuestion() {
 function prevQuestion() {
   minusCountBtn()
   sendDataForshowPrevQuestion()
+  selectedAnswer.value = getSavedAnswer(numberOfIndex() - 1)
 }
+
+function getSavedAnswer(index) {
+  const savedAnswer = questionsPinia.saveAnswers[index];
+  return savedAnswer ? savedAnswer.selectedAnswer : null;
+}
+
 function setQueryParams(props) {
   router.push(`?${props}`)
 }
+
 function finishQuizFn() {
   saveAnswer()
   setQueryParams(`page=showQuizResult`)
@@ -118,15 +129,7 @@ onMounted(() => {
     <h1 v-html="props.data.question"></h1>
   </div>
   <div class="answers">
-    <div
-      class="answer"
-      v-for="(items, index) in randomAnswersComputed"
-      :id="[selectedAnswer == items && 'focusOnSeleletedAnswer']"
-      :key="index"
-      @click="selectedAnswer = items"
-    >
-      <button>{{ index + 1 }}. {{ items }}</button>
-    </div>
+    <renderAnswers v-for="(items, index) in randomAnswersComputed" :id="[selectedAnswer == items && 'focusOnSeleletedAnswer']" :key="index" :data="items" :index="index + 1" @selectedAnswer="(data) => selectedAnswer = data" />
   </div>
   <div class="logicalButtons">
     <div class="changeQuestion">

@@ -8,7 +8,7 @@ import ShowQuizResult from './showQuizRezults/showQuizResult.vue'
 
 const questionsPinia = useQuestionsPinia()
 let route = useRoute()
-//------------------computed---------------//
+//------------------computed---------------///
 
 let dataLength = computed(() => {
   return questionsPinia.getQuestionsDataLength
